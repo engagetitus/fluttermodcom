@@ -10,7 +10,7 @@ class SearchConv extends StatefulWidget {
 class _SearchConvState extends State<SearchConv> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Search"),
       ),

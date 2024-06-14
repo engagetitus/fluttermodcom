@@ -10,9 +10,14 @@ class Conversations extends StatefulWidget {
 class _ConversationsState extends State<Conversations> {
   @override
   Widget build(BuildContext context) {
+    String name = "David";
     return Scaffold(
       appBar: AppBar(
-        title: Text("New Conversation"),
+        title: Row(
+          children: [
+            Text(name),
+          ],
+        ),
       ),
     );
   }
