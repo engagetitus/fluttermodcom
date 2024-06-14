@@ -1,20 +1,22 @@
-## Topic : Scaffold : Basic Flutter Widgets
-# Week 2 Project :  profile
+## Topic :Scaffold
+## Week 2 Project : Calculator
 
-- class in flutter which provides many widgets
-- expand and occupy whole device screen
-- common : AppBar,Body,floatingActionButton
+Scaffold is a class in Flutter that provides many widgets
+It expands and occupies a whole device's screen
+common : AppBar, Body, floatingActionButton
 
-# widgets
-- Scaffold (Appbar,)
+## Widgets
+- AppBar
 - Text
-- Row (layout)
-- Column (layout)
+- Row(layout)
+- Column(layout)
 - Container
-- Icons
+- Icon
+- Expanded
 
-# Assignment/ Task
-- on the profile page; have a icon (in place of Name, Phone, Address)
-- recreate a kenyan flag using containers at the 
 
+
+## Assignment
+- on the profile page, have an icon in place of Name, Phone, Address
+- recreate a Kenyan flag using containers 
 

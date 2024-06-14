@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+//import 'package:hello/main.dart';
 import 'package:hello/resources/week2.dart';
+
 
 class Week1 extends StatelessWidget {
   const Week1({super.key});
@@ -8,14 +10,22 @@ class Week1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Week 1"),
+        title: const Text('Week 1', style: TextStyle(fontSize: 25.2)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // GO TO WEEK 1 Notes
-            Navigator.push(context, MaterialPageRoute(builder: (_) => Week2()));
-          },
-          label: Text("Week2")),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const Week2()));
+        },
+        label: const Text('Week2'),
+
+
+      ),
     );
   }
 }

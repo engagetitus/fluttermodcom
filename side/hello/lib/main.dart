@@ -1,90 +1,90 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hello/calculator/calculator.dart';
-import 'package:hello/messages/messages.dart';
+//import 'package:flutter/widgets.dart';
+import 'package:hello/Calculator/calculator.dart';
+import 'package:hello/profile/stateful.dart';
+//import 'package:hello/profile/stateless.dart';
+import 'package:hello/messages/messages2.dart';
 import 'package:hello/resources/week1.dart';
 
-import 'profile/stateful.dart';
 
 void main() {
-  // the main function
-  runApp(const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Hello Flutter',
-      home: MyWidget()));
+  runApp(MaterialApp(
+    title: 'Hello Flutter',
+    debugShowCheckedModeBanner: false,
+    darkTheme: ThemeData.dark(useMaterial3: true),
+    theme: ThemeData.light(useMaterial3: true),
+    home: const MyWidget(),
+  ));
 }
 
-// Creating Our first Widget.
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Calculator
-
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        elevation: 10,
-        title: const Text("Flutter Apps"),
+        title: const Text(
+          'Flutter Apps',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 32.4,
+          ),
+        ),
+        backgroundColor: Colors.black,
         actions: [
           IconButton(
               onPressed: () {
-                // Navigate to Profile
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const Profile()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const Profile(),
+                  ),
+                );
               },
               icon: const Icon(Icons.person))
         ],
       ),
       body: Column(
         children: [
-          // "TASK 2 : List Projects here and Navigate to them (Calculator,Messages)",
-
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => const Calculator()));
-            },
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Calculator",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 25),
-                ),
-                Text("Rows and Columns Challenge")
-              ],
-            ),
-          ),
+          
+          
+          
           GestureDetector(
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (_) => const Messages()));
             },
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Messages",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 25),
-                ),
-                Text("Rows and Columns Challenge 2")
-              ],
-            ),
-          )
+            child: const Text('Messages',
+                style: TextStyle(fontSize: 25.2), textAlign: TextAlign.center),
+          ),
+
+
+
+          
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const Calculator()));
+            },
+            child: const Text('Calculator',
+                style: TextStyle(fontSize: 25.2), textAlign: TextAlign.center),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            //TASK1 GO TO WEEK 1 Notes
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const Week1()));
-          },
-          label: const Text("References")),
+        backgroundColor: const Color.fromARGB(255, 52, 37, 117),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const Week1() )
+          );
+        },
+        icon: const Icon(Icons.description),
+        label: const Text('References'),
+      ),
     );
   }
 }

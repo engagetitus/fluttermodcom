@@ -1,5 +1,5 @@
-// imports (library)
-
+// Importing libraries
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,184 +11,175 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  bool liked = true;
   int fav = 0;
-  String name = "Flutter Dev";
+  bool liked = true;
+
   @override
   Widget build(BuildContext context) {
+    //bool liked = true;
+
+    //String name = 'Flutter Dev';
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
-        title: const Text(
-          "My profile",
-          style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          elevation: 23.1,
+          
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back, color: Colors.white)),
+          title: const Text('My Profile',
+              style: TextStyle(
+                fontSize: 25.2,
+              )),
+          actions: const [
+            
+            Icon(Icons.settings, color: Colors.white)
+          ],
         ),
-        elevation: 10.0,
-        backgroundColor: Colors.teal,
-        actions: const [
-          // Takes a List of Widgets
 
-          Icon(
-            Icons.settings,
-            color: Colors.white,
-          )
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage("assets/ruto.jfif"),
-          ),
 
-          // Name
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                name,
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
-              ),
-            ],
-          ),
-          // phone
-          const Row(
-            children: [
-              Expanded(flex: 1, child: Icon(Icons.phone)),
-              Expanded(
-                flex: 5,
-                child: Text(
-                  " 0102119404",
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-            ],
-          ),
-          // address
-          const Row(
-            children: [
-              Expanded(flex: 1, child: Icon(Icons.location_city_sharp)),
-              Expanded(
-                flex: 5,
-                child: Text(
-                  " 2ndFloor, Block A, Haven Court, Waiyaki Way, Westlands",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                    height: 20,
-                    width: 30,
-                    // height: 30,
-                    child: Column(
-                      children: [
-                        Flexible(
-                          flex: 2,
-                          child: Container(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Container(
-                            color: Colors.green,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Container(
-                            color: Colors.red,
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-              const Expanded(
-                flex: 5,
-                child: Text(
-                  " Kenya",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ],
-          ),
-          //TASK : Flag  then Name of Country then the flag
-          // The Container WIdget
-          // WIDGET of the Day : Gesture Detector
-          const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                  child: IconButton(
-                      onPressed: () {
-                        liked = !liked; // wn pressed liked = false
 
-                        setState(() {
-                          // rebuilds the UI when called
-                        });
-                      },
-                      icon: Icon(
-                          liked ? Icons.favorite : Icons.favorite_border))),
-              const Expanded(
-                  flex: 5,
-                  child: Text(
-                    "I Like Flutter ", // if not liked - "Do You Like Flutter?"
-                    style: TextStyle(fontSize: 20),
-                  )),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+
+
+        body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              GestureDetector(
-                  onDoubleTap: () {
-                    fav++;
-                    setState(() {});
-                  },
-                  onLongPress: () {
-                    fav--;
-                    setState(() {});
-                  },
-                  child: const Text("Rate This Application")),
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                  'https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/10/03/12/Labrinth_close_up.jpg?quality=75&width=1250&crop=3%3A2%2Csmart&auto=webp'), radius: 50.0,),
+            ),
+             
+            const Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Text('David Wamiti',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ), textAlign: TextAlign.center,),
+            ),
+
+
+            const Row(
+                children: [
+                  Expanded(flex: 1, child: Icon(Icons.phone)),
+                  Expanded(
+                    flex: 5,
+                    child: Text('02839234',
+                        style: TextStyle(
+                          fontSize: 25.2,
+                        )),
+                  ),
+                ],
+              ),
+
+              const Row(
+                children: [
+                  Expanded(flex: 1, child: Icon(Icons.my_location)),
+                  Expanded(
+                    flex: 5,
+                    child: Text(
+                        '2nd Floor,Block A, Haven Court, Waiyaki Way, Westlands',
+                        style: TextStyle(
+                          fontSize: 25.2,
+                        )),
+                  )
+                ],
+              ),
+
               Row(
                 children: [
-                  Icon(fav > 1 ? Icons.star : Icons.star_border),
-                  Icon(fav > 2 ? Icons.star : Icons.star_border),
-                  GestureDetector(
-                      onTap: () {
-                        fav = 4;
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.black,
+                          height: 10.0,
+                          width: 30.0,
+                          padding: const EdgeInsets.all(10.0),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          height: 2.0,
+                          width: 30.0,
+                          padding: const EdgeInsets.all(10.0),
+                        ),
+                        Container(
+                          color: Colors.red,
+                          height: 10.0,
+                          width: 30.0,
+                          padding: const EdgeInsets.all(10.0),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          height: 2.0,
+                          width: 30.0,
+                          padding: const EdgeInsets.all(10.0),
+                        ),
+                        Container(
+                          color: Colors.green,
+                          height: 10.0,
+                          width: 30.0,
+                          padding: const EdgeInsets.all(10.0),
+                        )
+                      ],
+                    ),
+                  ),
+                  const Flexible(
+                    flex: 5,
+                    fit: FlexFit.tight,
+                    child: Text('Kenya',
+                        style: TextStyle(
+                          fontSize: 25.2,
+                        )),
+                  )
+                ],
+              ),
+
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      onPressed: () {
+                        liked = !liked;
+                        fav++;
                         setState(() {});
                       },
-                      child: Icon(
-                        fav > 3 ? Icons.star : Icons.star_border,
-                        size: 20,
-                      )),
-                  Icon(fav > 4 ? Icons.star : Icons.star_border),
-                  Icon(fav > 5 ? Icons.star : Icons.star_border),
+                      icon: Icon(liked
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 3,
+                      child: Text(
+                          liked ? 'I like Flutter!' : 'Do you like Flutter?')),
+                  GestureDetector(
+                    onTap: () {
+                      //setState being called which rebuilds our UI
+                      setState(() {
+                        fav++;
+                        print('Tapped ${fav} times');
+                      });
+                    },
+                    onDoubleTap: () {
+                      print('Tapped');
+                    },
+                    child: const Icon(Icons.favorite),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        print('Untapped ${fav} times');
+                        fav--;
+                      },
+                      icon: const Icon(Icons.favorite))
                 ],
               )
-            ],
-          ),
-        ],
-      ),
-    );
+            ]));
   }
 }
