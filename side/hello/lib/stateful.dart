@@ -1,5 +1,7 @@
+
 // imports (library)
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -42,21 +44,19 @@ class _ProfileState extends State<Profile> {
         ],
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage("assets/ruto.jfif"),
-          ),
-
           // Name
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                name,
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+              const Expanded(flex: 1, child: Icon(Icons.person)),
+              Expanded(
+                flex: 5,
+                child: Text(
+                  name,
+                  style: const TextStyle(fontSize: 30),
+                ),
               ),
             ],
           ),
@@ -133,7 +133,6 @@ class _ProfileState extends State<Profile> {
           //TASK : Flag  then Name of Country then the flag
           // The Container WIdget
           // WIDGET of the Day : Gesture Detector
-          const Spacer(),
           Row(
             children: [
               Expanded(

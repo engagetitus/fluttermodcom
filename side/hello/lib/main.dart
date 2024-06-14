@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hello/calculator/calculator.dart';
-import 'package:hello/messages/messages.dart';
+import 'package:hello/message/messages.dart';
+import 'package:hello/stateful.dart';
+
+
 import 'package:hello/resources/week1.dart';
 
-import 'profile/stateful.dart';
 
 void main() {
   // the main function

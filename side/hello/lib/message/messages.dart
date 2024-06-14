@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Messages extends StatelessWidget {
   const Messages({super.key});
@@ -6,31 +8,28 @@ class Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
         onPressed: () {
-          //to show some sort of a message
-          // We would Want to say ""
-          // SNACKBAR  - widget showing the lightweight message that briefly informs the user when certain actions occur.
-          final snackbar = SnackBar(
-            behavior: SnackBarBehavior.fixed,
-            duration: Duration(seconds: 5),
-            content: const Text("New Message"),
-            backgroundColor: const Color.fromARGB(255, 17, 69, 158),
-            showCloseIcon: false,
-            action: SnackBarAction(label: "Create", onPressed: () {}),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        final snackBar = SnackBar(
+          behavior: SnackBarBehavior.fixed,
+          content: const Text("New Message"),
+          backgroundColor: const Color.fromARGB(255, 17, 69, 158,),
+          showCloseIcon: false,
+          action: SnackBarAction(label:"Create", onPressed: (){},)
+        );
+          
+          
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          
         },
-        child: const Icon(Icons.message_outlined),
+        child: Image.asset('assets/newmsg.jpg'),
       ),
       body: Column(
         children: [
           Expanded(
             flex: 2,
             child: Container(
-              child: Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
@@ -38,18 +37,16 @@ class Messages extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Image.asset(
-                          'assets/messages.png',
-                          scale: 7.5,
-                        ),
-                        const Text(
+                        Image.asset('assets/message.png', scale: 7.5,),
+                        
+                        Text(
                           'Messages',
                           style: TextStyle(fontSize: 40),
                         ),
                       ],
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     flex: 2,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -58,11 +55,8 @@ class Messages extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 13.0),
                           child: Icon(Icons.search),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage("assets/ruto.jfif"),
-                          ),
+                        CircleAvatar(
+                          backgroundImage: AssetImage("assets/ruto.jpeg"),
                         )
                       ],
                     ),
