@@ -1,3 +1,8 @@
+
+
+
+
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -16,6 +21,8 @@ class _SignUpState extends State<SignUp> {
       ),
 
       body:Column(
+          crossAxisAlignment: crossAxisAlignment.center,
+      
           children:[
             Column(
               children:[
@@ -29,9 +36,10 @@ class _SignUpState extends State<SignUp> {
               decoration: InputDecoration(
                 labelText: 'FirstName',
                 hintText : 'Mary',
-                suffixIcon : Icon(Icons.person),
+                prefixIcon : Icon(Icons.person),
                 border: OutlineInputBorder(),
               ),
+              
             ),
 
 
@@ -39,7 +47,7 @@ class _SignUpState extends State<SignUp> {
               decoration: InputDecoration(
                 labelText: 'LastName',
                 hintText : 'Kamau',
-                suffixIcon : Icon(Icons.person),
+                prefixIcon : Icon(Icons.person),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -53,6 +61,7 @@ class _SignUpState extends State<SignUp> {
                 suffixIcon : Icon(Icons.person),
                 border: OutlineInputBorder(),
               ),
+              keyboardType: TextInputType.emailAddress
             ),
 
             TextField(
@@ -62,6 +71,8 @@ class _SignUpState extends State<SignUp> {
                 suffixIcon : Icon(Icons.person),
                 border: OutlineInputBorder(),
               ),
+
+              keyboardType: TextInputType.phone
             ),
 
             TextField(
@@ -107,7 +118,19 @@ class _SignUpState extends State<SignUp> {
                 suffixIcon : Icon(Icons.person),
                 border: OutlineInputBorder(),
               ),
-            )
+            ),
+
+            TextButton(
+            style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+            onPressed: () {
+
+
+            },
+            child: Text('Sign up'),
+)
+
 
           ]
 
