@@ -21,6 +21,8 @@ class _SignUpState extends State<SignUp> {
       ),
 
       body:ListView(
+        scrollDirection: Axis.vertical,
+        reverse: true,
         children: [
           Column(
               
@@ -68,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                     decoration: InputDecoration(
                       labelText: 'Email',
                       hintText : 'example@gmail.com',
-                      suffixIcon : Icon(Icons.person_2_rounded),
+                      prefixIcon : Icon(Icons.email),
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.emailAddress
@@ -76,12 +78,12 @@ class _SignUpState extends State<SignUp> {
                 ),
           
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(15.0),
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Phone',
                       hintText : '254721465789',
-                      suffixIcon : Icon(Icons.person),
+                      prefixIcon : Icon(Icons.phone),
                       border: OutlineInputBorder(),
                     ),
                   
@@ -90,54 +92,60 @@ class _SignUpState extends State<SignUp> {
                 ),
           
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(15.0),
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Course',
                       hintText : 'Bachelor of Science in Computer Science',
-                      suffixIcon : Icon(Icons.person),
+                      prefixIcon : Icon(Icons.book),
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
           
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(15.0),
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Lab',
                       hintText : 'Lab 9',
-                      suffixIcon : Icon(Icons.person),
+                      prefixIcon : Icon(Icons.cell_tower),
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
           
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Profile Image',
-                    hintText : 'url',
-                    suffixIcon : Icon(Icons.person),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-          
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Github',
-                    hintText : 'url',
-                    suffixIcon : Icon(Icons.person),
-                    border: OutlineInputBorder(),
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Profile Image',
+                      hintText : 'url',
+                      prefixIcon : Icon(Icons.link),
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
           
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(15.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Github',
+                      hintText : 'url',
+                      prefixIcon : Icon(Icons.link),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+          
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Address',
                       hintText : 'P.O. BOX 45763 Muranga',
-                      suffixIcon : Icon(Icons.person),
+                      prefixIcon : Icon(Icons.home_filled),
                       border: OutlineInputBorder(),
                     ),
                   ),

@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/screens/profile.dart';
+import 'package:lms/screens/signup.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -80,7 +82,20 @@ class _LoginState extends State<Login> {
               controller: passwordController,
             ),
           ),
-          Text('User Password: ${passwordController.text}'),
+
+             TextButton(
+                style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.blue),
+                      ),
+                onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> const SignUp()));
+          
+                },
+                child: const Text('Sign up'),
+          ),
+
+
+          // Text('User Password: ${passwordController.text}'),
         ],
       ),
     );
