@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'profile.dart';
+import 'signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -76,9 +77,10 @@ class _LoginState extends State<Login> {
             alignment: Alignment.bottomRight,
             child: TextButton(
                 onPressed: () {
-                  //TASK : GO TO SIGNUP
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const SignUp()));
                 },
-                child: Text(
+                child: const Text(
                   "SIGNUP",
                   style: TextStyle(color: Colors.green),
                 )),
