@@ -19,21 +19,23 @@ class _SignUpState extends State<SignUp> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        
       ),
       body: ListView(
         scrollDirection: Axis.vertical,
+        controller: ScrollController(keepScrollOffset: true),
         reverse: true,
         children: [
           Column(children: [
-            const Column(children: [
+            const Column(
+              children: [
               Text(
                 'Welcome',
                 style: TextStyle(fontSize: 30.0),
               ),
               Text(
                 'Sign Up',
-                style: TextStyle(fontSize: 23.0),
+                style: TextStyle(fontSize: 19.0, fontStyle: FontStyle.italic),
               ),
             ]),
 
@@ -85,47 +87,67 @@ class _SignUpState extends State<SignUp> {
                   keyboardType: TextInputType.phone),
             ),
 
-            DropdownButton(
-                value: selectedCourse,
-                items: courses.map((String item) {
-                  return DropdownMenuItem(
-                  enabled: selectedCourse != item,value: item, 
-                  alignment: Alignment.centerLeft,
-                  child: Text(item));
-                }).toList(),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: DropdownButtonFormField(
+                  value: selectedCourse,
+                  items: courses.map((String item) {
+                    return DropdownMenuItem(
+                    enabled: selectedCourse != item,value: item, 
+                    alignment: Alignment.centerLeft,
+                    child: Text(item));
+                  }).toList(),
+              
+                  decoration: const InputDecoration(
+                    labelText: 'Course',
+                    border: OutlineInputBorder(),
+                    
+              
+                  ),
+              
+              
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCourse =  newValue!;
+              
+                    });
+                    
+                    
+                  }),
+            ),
 
 
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedCourse =  newValue!;
-
-                  });
-                  
-                  
-                }),
 
 
 
-
-
-              DropdownButton(
-              value: selectedLab,
-                items: labs.map((String item1) {
-                  return DropdownMenuItem(
-                  enabled: selectedLab != item1, 
-                  value: item1, 
-                  child: Text(item1));
-                }).toList(),
-
-
-                onChanged: (String? newValue1) {
-                  setState(() {
-                    selectedLab =  newValue1!;
-
-                  });
-                  
-                  
-                }),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: DropdownButtonFormField(
+                value: selectedLab,
+                  items: labs.map((String item1) {
+                    return DropdownMenuItem(
+                    enabled: selectedLab != item1, 
+                    value: item1, 
+                    child: Text(item1));
+                  }).toList(),
+                
+                  decoration: const InputDecoration(
+                      labelText: 'Labs',
+                      border: OutlineInputBorder(),
+                      
+                
+                    ),
+                
+                
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      selectedLab =  newValue1!;
+                
+                    });
+                    
+                    
+                  }),
+              ),
 
                
                 
@@ -134,29 +156,29 @@ class _SignUpState extends State<SignUp> {
 
 
 
-            const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Course',
-                  hintText: 'Bachelor of Science in Computer Science',
-                  prefixIcon: Icon(Icons.book),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.all(15.0),
+            //   child: TextField(
+            //     decoration: InputDecoration(
+            //       labelText: 'Course',
+            //       hintText: 'Bachelor of Science in Computer Science',
+            //       prefixIcon: Icon(Icons.book),
+            //       border: OutlineInputBorder(),
+            //     ),
+            //   ),
+            // ),
 
-            const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Lab',
-                  hintText: 'Lab 9',
-                  prefixIcon: Icon(Icons.cell_tower),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.all(15.0),
+            //   child: TextField(
+            //     decoration: InputDecoration(
+            //       labelText: 'Lab',
+            //       hintText: 'Lab 9',
+            //       prefixIcon: Icon(Icons.cell_tower),
+            //       border: OutlineInputBorder(),
+            //     ),
+            //   ),
+            // ),
 
             const Padding(
               padding: EdgeInsets.all(15.0),
@@ -215,7 +237,12 @@ class _SignUpState extends State<SignUp> {
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20))))),
             ),
+
+            
           ]),
+
+
+          
         ],
       ),
     );
