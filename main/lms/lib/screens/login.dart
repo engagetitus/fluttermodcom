@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 220.0,
                 ),
                 const SizedBox(height: 30),
-                TextField(
+                TextFormField(
                   textCapitalization: TextCapitalization.none,
                   showCursor: false,
                   keyboardType: TextInputType.emailAddress,
@@ -51,9 +51,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 30),
-                TextField(
+                TextFormField(
                   keyboardType: TextInputType.visiblePassword,
                   cursorOpacityAnimates: true,
                   obscureText: obscure,
@@ -73,16 +79,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelText: 'Password',
                     border: const OutlineInputBorder(),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your Password';
+                    }
+                    return null;
+                  },
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
                     onPressed: () {
-                      //TASK : GO TO SIGNUP
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignupScreen()),
-                      );
+                      if (_formKey.currentState!.validate()) {
+                        //TASK : GO TO SIGNUP
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignupScreen()),
+                        );
+                      }
                     },
                     child: const Text(
                       "SIGNUP",
@@ -90,14 +105,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfileScreen()),
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      // Navigate to ProfileScreen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfileScreen()),
+                      );
+                    }
                   },
                   child: const Text('Login'),
                 ),
