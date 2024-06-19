@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'components/dropdown.dart';
 import 'profile.dart';
 import 'signup.dart';
 
@@ -21,6 +22,7 @@ class _LoginState extends State<Login> {
 
   // CHALLENGE DYNAMIC OBSCURE TEXT
   bool obscure = true;
+  String selectedgender = gender[0];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +75,23 @@ class _LoginState extends State<Login> {
                     icon: Icon(
                         obscure ? Icons.visibility : Icons.visibility_off))),
           ),
+          ElevatedButton(onPressed: () {}, child: Text("Elevated")),
+          OutlinedButton(onPressed: () {}, child: Text("Outlined")),
+          DropdownButton(
+              isExpanded: true,
+              value: selectedgender,
+              items: gender.map((String item) {
+                return DropdownMenuItem(
+                  child: Text(item),
+                  value: item,
+                );
+              }).toList(),
+              onChanged: (String? item) {
+                setState(() {
+                  // saving the selection
+                  selectedgender = item!;
+                });
+              }),
           Align(
             alignment: Alignment.bottomRight,
             child: TextButton(
