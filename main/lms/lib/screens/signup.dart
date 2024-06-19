@@ -1,4 +1,4 @@
-
+import 'package:flutter/material.dart';
 
 
 
@@ -7,7 +7,7 @@ class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
-  State<Signup> createState() => _SignUpState();
+  State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
@@ -16,15 +16,15 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('')
+        title: const Text('')
 
       ),
 
       body:Column(
-          crossAxisAlignment: crossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
       
           children:[
-            Column(
+            const Column(
               children:[
             Text('Welcome', style: TextStyle(fontSize: 30.0),),
             Text('Sign Up', style: TextStyle(fontSize: 23.0),),
@@ -32,7 +32,7 @@ class _SignUpState extends State<SignUp> {
 
 
 
-          TextField(
+          const TextField(
               decoration: InputDecoration(
                 labelText: 'FirstName',
                 hintText : 'Mary',
@@ -43,7 +43,7 @@ class _SignUpState extends State<SignUp> {
             ),
 
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'LastName',
                 hintText : 'Kamau',
@@ -54,7 +54,7 @@ class _SignUpState extends State<SignUp> {
 
 
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Email',
                 hintText : 'example@gmail.com',
@@ -64,7 +64,7 @@ class _SignUpState extends State<SignUp> {
               keyboardType: TextInputType.emailAddress
             ),
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Phone',
                 hintText : '254721465789',
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
               keyboardType: TextInputType.phone
             ),
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Course',
                 hintText : 'Bachelor of Science in Computer Science',
@@ -84,7 +84,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Lab',
                 hintText : 'Lab 9',
@@ -93,7 +93,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Profile Image',
                 hintText : 'url',
@@ -102,7 +102,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Github',
                 hintText : 'url',
@@ -111,7 +111,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Address',
                 hintText : 'P.O. BOX 45763 Muranga',
@@ -122,13 +122,13 @@ class _SignUpState extends State<SignUp> {
 
             TextButton(
             style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+            foregroundColor: WidgetStateProperty.all<Color>(Colors.blue),
                   ),
             onPressed: () {
 
 
             },
-            child: Text('Sign up'),
+            child: const Text('Sign up'),
 )
 
 
@@ -137,7 +137,7 @@ class _SignUpState extends State<SignUp> {
           ),
           
 
-            )
+            );
           
       
     
