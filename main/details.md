@@ -4,6 +4,6 @@
 package name - ke.co.modcom.flutter lms
 Lesson 16 -
 TASK: 
--create signup(firstname, lastname, email, phonenumber, course, lab, profileImage(url), githuv(url), address)
+-create signup(firstname, lastname, email, phonenumber, course, lab, profileImage(url), github(url), address)
 - link the signup button to sign up page
 - Button on signin and signup
