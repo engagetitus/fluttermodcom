@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms/screens/profile.dart';
+import 'package:lms/screens/signup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -65,10 +66,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscure = !obscure;
                         });
                       },
-                      icon: const Icon(Icons.visibility_off_outlined),
+                      icon: Icon(obscure
+                          ? Icons.visibility
+                          : Icons.visibility_off_rounded),
                     ),
                     labelText: 'Password',
                     border: const OutlineInputBorder(),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      //TASK : GO TO SIGNUP
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                      );
+                    },
+                    child: const Text(
+                      "SIGNUP",
+                      style: TextStyle(color: Colors.green),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
