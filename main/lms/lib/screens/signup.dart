@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lms/screens/components/dropdown.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -8,6 +9,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  String selectedLab = labz[0];
+  String selectedCourse = courses[0]; //Set the initial selected value
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstnameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
@@ -22,8 +25,11 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Signup'),
+        title: const Text('Sign Up'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,22 +39,63 @@ class _SignupScreenState extends State<SignupScreen> {
             children: <Widget>[
               _buildTextField(_firstnameController, 'First Name'),
               const SizedBox(height: 10),
+
               _buildTextField(_lastnameController, 'Last Name'),
               const SizedBox(height: 10),
+
               _buildTextField(_emailController, 'Email'),
               const SizedBox(height: 10),
+
               _buildTextField(_phoneController, 'Phone'),
               const SizedBox(height: 10),
+
               _buildTextField(_courseController, 'Course'),
+              DropdownButton(
+                  isExpanded: true,
+                  enableFeedback: true,
+                  value: selectedCourse,
+                  items: courses.map((String item) {
+                    return DropdownMenuItem(
+                        alignment: Alignment.centerRight,
+                        enabled: selectedCourse != item,
+                        value: item,
+                        child: Text(item));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCourse = newValue!;
+                    });
+                  }),
               const SizedBox(height: 10),
+
               _buildTextField(_labController, 'Lab'),
+              DropdownButton(
+                  isExpanded: true,
+                  enableFeedback: true,
+                  value: selectedLab,
+                  items: labz.map((String item) {
+                    return DropdownMenuItem(
+                        alignment: Alignment.centerRight,
+                        enabled: selectedLab != item,
+                        value: item,
+                        child: Text(item));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedLab = newValue!;
+                    });
+                  }),
               const SizedBox(height: 10),
+
               _buildTextField(_profileImageController, 'Profile Image URL'),
               const SizedBox(height: 10),
+
               _buildTextField(_githubController, 'GitHub URL'),
               const SizedBox(height: 10),
+
               _buildTextField(_addressController, 'Address'),
               const SizedBox(height: 20),
+
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -57,6 +104,24 @@ class _SignupScreenState extends State<SignupScreen> {
                 },
                 child: const Text('Signup'),
               ),
+              // ElevatedButton.icon(
+              //   style: const ButtonStyle(
+              //     shape: WidgetStatePropertyAll(RoundedRectangleBorder()),
+              //     backgroundColor: WidgetStatePropertyAll(Colors.amber),
+              //   ),
+              //   icon: const Icon(Icons.near_me),
+              //   onPressed: () {},
+              //   label: const Text("Elevetad Button"),
+              // ),
+              OutlinedButton.icon(
+                style: const ButtonStyle(
+                  shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)))),
+                ),
+                icon: const Icon(Icons.near_me),
+                onPressed: () {},
+                label: const Text("Outlined Button"),
+              )
             ],
           ),
         ),
