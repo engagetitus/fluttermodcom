@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lms/components/dropdown.dart';
 
 class SignUp extends StatefulWidget {
@@ -9,9 +10,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String selectedCourse = courses[0]; 
+  String selectedCourse = courses[0];
   String selectedLab = labs[0];
-
+  var passwordController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,6 @@ class _SignUpState extends State<SignUp> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        
       ),
       body: ListView(
         scrollDirection: Axis.vertical,
@@ -27,8 +28,7 @@ class _SignUpState extends State<SignUp> {
         reverse: true,
         children: [
           Column(children: [
-            const Column(
-              children: [
+            const Column(children: [
               Text(
                 'Welcome',
                 style: TextStyle(fontSize: 30.0),
@@ -63,16 +63,32 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
-            const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'example@gmail.com',
-                    prefixIcon: Icon(Icons.email),
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.emailAddress),
+            Form(
+             
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'example@gmail.com',
+                      prefixIcon: Icon(Icons.email),
+                      border: OutlineInputBorder(),
+                    ),
+                    
+                    
+                    
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter email';
+                      } 
+                      else if (!value.contains('@')) {
+                        return "Please check your email's format";
+                      } else {
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.emailAddress),
+              ),
             ),
 
             const Padding(
@@ -91,70 +107,53 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.all(15.0),
               child: DropdownButtonFormField(
                   value: selectedCourse,
+
+
                   items: courses.map((String item) {
                     return DropdownMenuItem(
-                    enabled: selectedCourse != item,value: item, 
-                    alignment: Alignment.centerLeft,
-                    child: Text(item));
+                        enabled: selectedCourse != item,
+                        value: item,
+                        alignment: Alignment.centerLeft,
+                        child: Text(item));
                   }).toList(),
-              
+
+                 
+
                   decoration: const InputDecoration(
                     labelText: 'Course',
                     border: OutlineInputBorder(),
-                    
-              
+                    prefixIcon: Icon(Icons.book),
                   ),
-              
-              
+
+
                   onChanged: (String? newValue) {
                     setState(() {
-                      selectedCourse =  newValue!;
-              
+                      selectedCourse = newValue!;
                     });
-                    
-                    
                   }),
             ),
 
-
-
-
-
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: DropdownButtonFormField(
-                value: selectedLab,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: DropdownButtonFormField(
+                  value: selectedLab,
                   items: labs.map((String item1) {
                     return DropdownMenuItem(
-                    enabled: selectedLab != item1, 
-                    value: item1, 
-                    child: Text(item1));
+                        enabled: selectedLab != item1,
+                        value: item1,
+                        child: Text(item1));
                   }).toList(),
-                
                   decoration: const InputDecoration(
-                      labelText: 'Labs',
-                      border: OutlineInputBorder(),
-                      
-                
-                    ),
-                
-                
+                    labelText: 'Labs',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.business_center),
+                  ),
                   onChanged: (String? newValue1) {
                     setState(() {
-                      selectedLab =  newValue1!;
-                
+                      selectedLab = newValue1!;
                     });
-                    
-                    
                   }),
-              ),
-
-               
-                
-                
-                
-
-
+            ),
 
             // const Padding(
             //   padding: EdgeInsets.all(15.0),
@@ -216,6 +215,18 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextFormField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.password),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+
             TextButton.icon(
               style: ButtonStyle(
                 foregroundColor: WidgetStateProperty.all<Color>(Colors.blue),
@@ -227,7 +238,16 @@ class _SignUpState extends State<SignUp> {
 
             //Remember to change it later like the elevated button
             OutlinedButton(
-                onPressed: () {}, child: const Text('Outlined button')),
+                onPressed: () {},
+                child: const Text('Outlined button')),
+
+
+
+
+
+
+
+
 
             ElevatedButton.icon(
               onPressed: () {},
@@ -237,12 +257,7 @@ class _SignUpState extends State<SignUp> {
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20))))),
             ),
-
-            
           ]),
-
-
-          
         ],
       ),
     );

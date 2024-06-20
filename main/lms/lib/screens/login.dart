@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lms/screens/profile.dart';
 import 'package:lms/screens/signup.dart';
+import 'package:email_validator/email_validator.dart';
 
 
 class Login extends StatefulWidget {
@@ -15,6 +16,9 @@ class _LoginState extends State<Login> {
   bool obscure = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
