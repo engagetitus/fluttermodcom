@@ -130,6 +130,7 @@ class _SignUpState extends State<SignUp> {
                     prefixIcon: Icon(Icons.cell_tower_outlined),
                     border: OutlineInputBorder(),
                   ),
+                  
                 ),
               ),
 

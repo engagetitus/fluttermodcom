@@ -23,6 +23,8 @@ class _LoginState extends State<Login> {
   // CHALLENGE DYNAMIC OBSCURE TEXT
   bool obscure = true;
   String selectedgender = gender[0];
+  // Key for Form Validation - maintains widget state
+  var _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,11 +44,25 @@ class _LoginState extends State<Login> {
             ),
           ),
           const Text("Login"),
-          TextField(
+          Form(child: Column(
+
+          )),
+          TextFormField(
             showCursor: false,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             textCapitalization: TextCapitalization.none,
+            validator: (value){
+              // validate user input
+              if (value!.isEmpty){
+                return'Please Enter Email';
+              }
+              else if (!value.contains('@')){
+                return'Enter Valid Email';
+              }
+            
+
+            },
             onChanged: (value) {
               print(_email);
               setState(() {
@@ -58,10 +74,22 @@ class _LoginState extends State<Login> {
                 hintText: "abc@domain.com",
                 suffix: Icon(Icons.email_outlined)),
           ),
-          TextField(
+
+          // We Definitely Need to validate User Input
+
+          TextFormField(
             keyboardType: TextInputType.visiblePassword,
             obscureText: obscure,
             controller: _passwordController,
+            validator: (value){
+              if (value!.isEmpty || value.contains(_email)){
+                return'Please Enter Password';
+              }
+              else if (value.length<6){
+                return'Must Be 6 Char';
+              }
+
+            },
             decoration: InputDecoration(
                 hintText: 'Secret word',
                 labelText: 'Password',
@@ -75,8 +103,11 @@ class _LoginState extends State<Login> {
                     icon: Icon(
                         obscure ? Icons.visibility : Icons.visibility_off))),
           ),
-          ElevatedButton(onPressed: () {}, child: Text("Elevated")),
-          OutlinedButton(onPressed: () {}, child: Text("Outlined")),
+        
+          OutlinedButton(onPressed: () {
+            final isvalid = _formkey.currentState!.validate();
+
+          }, child: Text("Login")),
           DropdownButton(
               isExpanded: true,
               value: selectedgender,
