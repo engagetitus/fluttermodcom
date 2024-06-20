@@ -90,14 +90,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.bottomRight,
                   child: TextButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        //TASK : GO TO SIGNUP
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignupScreen()),
-                        );
-                      }
+                      //TASK : GO TO SIGNUP
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignupScreen()),
+                      );
                     },
                     child: const Text(
                       "SIGNUP",
