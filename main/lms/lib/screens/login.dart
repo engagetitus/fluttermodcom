@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lms/screens/profile.dart';
 import 'package:lms/screens/signup.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -52,10 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                    if (value == null || !EmailValidator.validate(value)) {
+                      return 'Please enter valid email';
                     }
-                    return null;
+                    //  else if (!value.contains('@')) {
+                    //   return 'Enter Valid Email';}
+                    else {
+                      return null;
+                    }
                   },
                 ),
                 const SizedBox(height: 30),
@@ -81,9 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your Password';
+                      return 'Please enter your Passwor';
+                    } else if (value.length < 6) {
+                      return 'Must be more than 6 characters';
+                    } else {
+                      return null;
                     }
-                    return null;
                   },
                 ),
                 Align(

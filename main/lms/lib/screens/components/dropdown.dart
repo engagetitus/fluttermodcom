@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 var courses = [
   "Data Science",
   "Flutter Programming",
@@ -23,3 +25,19 @@ var labz = List.generate(9, (index) => 'Lab ${index + 1}');
 //   "Lab 8",
 //   "Lab 9",
 // ];
+
+DropdownButtonFormField customDrop(String input, String selected,
+    List<String> list, Function(dynamic)? setValue) {
+  return DropdownButtonFormField(
+      isExpanded: true,
+      enableFeedback: true,
+      value: selected,
+      items: courses.map((String item) {
+        return DropdownMenuItem(
+            alignment: Alignment.centerRight,
+            enabled: selected != item,
+            value: item,
+            child: Text(item));
+      }).toList(),
+      onChanged: setValue);
+}

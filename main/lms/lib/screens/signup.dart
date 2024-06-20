@@ -9,6 +9,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  // String? Function(String?)? validator
   String selectedLab = labz[0];
   String selectedCourse = courses[0]; //Set the initial selected value
   final _formKey = GlobalKey<FormState>();
@@ -32,7 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Form(
           key: _formKey,
           child: ListView(
