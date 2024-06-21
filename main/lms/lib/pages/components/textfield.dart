@@ -1,16 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-
-// TextField(
-//                     decoration: InputDecoration(
-//                       labelText: 'Email',
-//                       hintText: 'example@gmail.com',
-//                       prefixIcon: Icon(Icons.email),
-//                       border: OutlineInputBorder(),
-//                     ),
-//                     keyboardType: TextInputType.emailAddress),
-//               )
 
 TextFormField customTextField(
   String label, {
@@ -28,5 +16,26 @@ TextFormField customTextField(
         hintText: hint,
         prefixIcon: Icon(icon),
         border: OutlineInputBorder()),
+    validator: validator,
   );
 }
+
+String? validateUrl(String? value) {
+  // Regular expression to validate a URL
+  Pattern pattern = r'^(https?:\/\/)?' // Optional scheme. Either http or https.
+      r"(([a-zA-Z0-9$-_.+!*\'(),]|%[0-9a-fA-F]{2})+@)?" // Optional user info.
+      r'([a-zA-Z0-9.-]+)' // Hostname.
+      r'(\.[a-zA-Z]{2,})' // Top-level domain.
+      r'(:[0-9]{1,5})?' // Optional port.
+      r'(\/.*)?$'; // Optional path.
+  RegExp regex = RegExp(pattern as String);
+  if (!regex.hasMatch(value ?? '')) {
+    return 'Enter a valid URL';
+  } else {
+    return null;
+  }
+}
+
+Container spacing = Container(
+  height: 10,
+);

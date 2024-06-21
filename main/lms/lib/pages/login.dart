@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'components/dropdown.dart';
-import 'profile.dart';
 import 'signup.dart';
 
 class Login extends StatefulWidget {
@@ -23,6 +22,7 @@ class _LoginState extends State<Login> {
   String selectedgender = gender[0];
   // KEy For Form Validation - maintains widget state
   final _formKey = GlobalKey<FormState>();
+  //controllers
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,7 @@ class _LoginState extends State<Login> {
       body: Column(
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => const Profile()));
-            },
+            onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Image.asset(
@@ -68,7 +65,6 @@ class _LoginState extends State<Login> {
                         }
                       },
                       onChanged: (value) {
-                      
                         setState(() {
                           _email = value;
                         });
@@ -114,13 +110,14 @@ class _LoginState extends State<Login> {
                           // checking form state
                           final isValid = _formKey.currentState!.validate();
 
-                          if (isValid) {
+                          if (!isValid) {
                             // DO NOT PROCEEDE
 
                             final snackBar = SnackBar(
                                 behavior: SnackBarBehavior.fixed,
                                 content: const Text("Please Check In Form"),
-                                backgroundColor: Color.fromARGB(255, 78, 7, 33),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 78, 7, 33),
                                 showCloseIcon: false,
                                 action: SnackBarAction(
                                   label: "Create",
@@ -129,26 +126,23 @@ class _LoginState extends State<Login> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           } else {
-                            final snackBar = SnackBar(
-                                behavior: SnackBarBehavior.fixed,
-                                content: const Text("Sign In"),
-                                backgroundColor: const Color.fromARGB(
-                                  255,
-                                  17,
-                                  69,
-                                  158,
-                                ),
-                                showCloseIcon: false,
-                                action: SnackBarAction(
-                                  label: "Create",
-                                  onPressed: () {},
-                                ));
+                            const snackBar = SnackBar(
+                              behavior: SnackBarBehavior.fixed,
+                              content: Text("Signed In"),
+                              backgroundColor: Color.fromARGB(
+                                255,
+                                17,
+                                69,
+                                158,
+                              ),
+                              showCloseIcon: false,
+                            );
 
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           }
                         },
-                        child: Text("Login")),
+                        child: const Text("Login")),
                   ],
                 )),
           ),
