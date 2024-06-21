@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lms/components/dropdown.dart';
+import 'package:lms/refactoring/textfield.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -91,17 +93,16 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
 
-            const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Phone',
-                    hintText: '254721465789',
-                    prefixIcon: Icon(Icons.phone),
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.phone),
-            ),
+
+            customTextField(labelText: 'Phone', 
+            hintText: '254783299210', 
+            prefixIcon: const Icon(Icons.phone), 
+            border: const OutlineInputBorder(), 
+            keyboardType: TextInputType.emailAddress,),
+            
+
+
+
 
             Padding(
               padding: const EdgeInsets.all(15.0),
