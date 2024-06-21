@@ -28,12 +28,13 @@ var labz = List.generate(9, (index) => 'Lab ${index + 1}');
 
 DropdownButtonFormField customDrop(String input, String selected,
     List<String> list, Function(dynamic)? setValue) {
-  return DropdownButtonFormField(
+  return DropdownButtonFormField<String>(
       isExpanded: true,
       enableFeedback: true,
+      hint: Text("select $input"),
       value: selected,
       items: courses.map((String item) {
-        return DropdownMenuItem(
+        return DropdownMenuItem<String>(
             alignment: Alignment.centerRight,
             enabled: selected != item,
             value: item,

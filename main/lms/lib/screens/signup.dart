@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms/screens/components/dropdown.dart';
+import 'package:lms/screens/profile.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -9,9 +10,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  // String? Function(String?)? validator
   String selectedLab = labz[0];
-  String selectedCourse = courses[0]; //Set the initial selected value
+  String selectedCourse = courses[0];
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstnameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
@@ -40,80 +40,53 @@ class _SignupScreenState extends State<SignupScreen> {
             children: <Widget>[
               _buildTextField(_firstnameController, 'First Name'),
               const SizedBox(height: 10),
-
               _buildTextField(_lastnameController, 'Last Name'),
               const SizedBox(height: 10),
-
               _buildTextField(_emailController, 'Email'),
               const SizedBox(height: 10),
-
               _buildTextField(_phoneController, 'Phone'),
               const SizedBox(height: 10),
-
-              _buildTextField(_courseController, 'Course'),
-              DropdownButton(
-                  isExpanded: true,
-                  enableFeedback: true,
-                  value: selectedCourse,
-                  items: courses.map((String item) {
-                    return DropdownMenuItem(
-                        alignment: Alignment.centerRight,
-                        enabled: selectedCourse != item,
-                        value: item,
-                        child: Text(item));
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedCourse = newValue!;
-                    });
-                  }),
+              _buildDropdown(courses, selectedCourse, 'Course', (newValue) {
+                setState(() {
+                  selectedCourse = newValue!;
+                });
+              }),
               const SizedBox(height: 10),
-
-              _buildTextField(_labController, 'Lab'),
-              DropdownButton(
-                  isExpanded: true,
-                  enableFeedback: true,
-                  value: selectedLab,
-                  items: labz.map((String item) {
-                    return DropdownMenuItem(
-                        alignment: Alignment.centerRight,
-                        enabled: selectedLab != item,
-                        value: item,
-                        child: Text(item));
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedLab = newValue!;
-                    });
-                  }),
+              _buildDropdown(labz, selectedLab, 'Lab', (newValue) {
+                setState(() {
+                  selectedLab = newValue!;
+                });
+              }),
               const SizedBox(height: 10),
-
               _buildTextField(_profileImageController, 'Profile Image URL'),
               const SizedBox(height: 10),
-
               _buildTextField(_githubController, 'GitHub URL'),
               const SizedBox(height: 10),
-
               _buildTextField(_addressController, 'Address'),
               const SizedBox(height: 20),
-
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // Process data
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(
+                          firstname: _firstnameController.text,
+                          lastname: _lastnameController.text,
+                          email: _emailController.text,
+                          phone: _phoneController.text,
+                          course: selectedCourse,
+                          lab: selectedLab,
+                          profileImage: _profileImageController.text,
+                          github: _githubController.text,
+                          address: _addressController.text,
+                        ),
+                      ),
+                    );
                   }
                 },
                 child: const Text('Signup'),
               ),
-              // ElevatedButton.icon(
-              //   style: const ButtonStyle(
-              //     shape: WidgetStatePropertyAll(RoundedRectangleBorder()),
-              //     backgroundColor: WidgetStatePropertyAll(Colors.amber),
-              //   ),
-              //   icon: const Icon(Icons.near_me),
-              //   onPressed: () {},
-              //   label: const Text("Elevetad Button"),
-              // ),
               OutlinedButton.icon(
                 style: const ButtonStyle(
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(
@@ -140,6 +113,29 @@ class _SignupScreenState extends State<SignupScreen> {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter $label';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildDropdown(List<String> items, String selectedItem, String label, ValueChanged<String?> onChanged) {
+    return DropdownButtonFormField<String>(
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+      ),
+      value: selectedItem,
+      onChanged: onChanged,
+      items: items.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      validator: (value) {
+        if (value == null) {
+          return 'Please select a $label';
         }
         return null;
       },

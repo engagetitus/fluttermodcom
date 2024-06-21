@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final String firstname;
+  final String lastname;
+  final String email;
+  final String phone;
+  final String course;
+  final String lab;
+  final String profileImage;
+  final String github;
+  final String address;
+
+  ProfileScreen({
+    required this.firstname,
+    required this.lastname,
+    required this.email,
+    required this.phone,
+    required this.course,
+    required this.lab,
+    required this.profileImage,
+    required this.github,
+    required this.address,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,17 +30,18 @@ class ProfileScreen extends StatelessWidget {
         title: const Text('Profile'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView(
           children: <Widget>[
-            Image.asset(
-              'assets/modcom.jpg',
-              height: 220.0,
-              width: 220.0,
-            ),
-            const SizedBox(height: 30),
+            if (profileImage.isNotEmpty) Image.network(profileImage),
+            Text('First Name: $firstname'),
+            Text('Last Name: $lastname'),
+            Text('Email: $email'),
+            Text('Phone Number: $phone'),
+            Text('Current Course: $course'),
+            Text('Lab: $lab'),
+            Text('GitHub: $github'),
+            Text('Adress: $address'),
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lms/screens/profile.dart';
+// import 'package:lms/screens/profile.dart';
 import 'package:lms/screens/signup.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -106,8 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                     child: const Text(
-                      "SIGNUP",
-                      style: TextStyle(color: Colors.green),
+                      "Don't have an Account?, SIGNUP",
+                      style: TextStyle(color: Color.fromARGB(255, 76, 91, 175)),
                     ),
                   ),
                 ),
@@ -117,8 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Navigate to ProfileScreen
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfileScreen()),
+                        MaterialPageRoute(builder: (context) => SignupScreen()),
                       );
                     }
                   },
