@@ -11,7 +11,8 @@ class ProfileScreen extends StatelessWidget {
   final String github;
   final String address;
 
-  ProfileScreen({
+  const ProfileScreen({
+    super.key,
     required this.firstname,
     required this.lastname,
     required this.email,
