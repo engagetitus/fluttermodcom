@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:lms/pages/components/dropdown.dart';
 
+import 'components/textfield.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -11,7 +13,12 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   String selectedCourse = courses[0]; // setting initial
-  final _labController = TextEditingController();
+  final _labController = TextEditingController(text: labs[0]);
+  final _fNameController = TextEditingController(text: 'Collins');
+  final _lNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +35,7 @@ class _SignUpState extends State<SignUp> {
             child: Column(children: [
               const Column(children: [
                 Text(
-                  'Hey There',
+                  'Welcome',
                   style: TextStyle(fontSize: 30.0),
                 ),
                 Text(
@@ -36,45 +43,50 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(fontSize: 23.0),
                 ),
               ]),
-              const Padding(
-                padding: EdgeInsets.all(15.0),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _fNameController,
+                  decoration: const InputDecoration(
                     labelText: 'FirstName',
-                    hintText: 'Lewis',
+                    hintText: 'Mary',
                     prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(15.0),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _lNameController,
+                  decoration: const InputDecoration(
                     labelText: 'LastName',
-                    hintText: 'Mbogori',
+                    hintText: 'Kamau',
                     prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(15.0),
+              customTextField('Email',
+                  hint: 'example@gmail.com',
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  icon: Icons.email, validator: (value) {
+                // if (!EmailValidator.validate(value)) {
+                //   return "Enter Valid Email";
+                // } else {
+                //   return null;
+                // }
+              }),
+
+              Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'abc@gmail.com',
-                      prefixIcon: Icon(Icons.email),
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.emailAddress),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                      hintText: '0792322047',
+                    controller: _phoneController,
+                    maxLength: 10,
+                    decoration: const InputDecoration(
+                      labelText: 'Phone',
+                      hintText: '254721465789',
                       prefixIcon: Icon(Icons.phone),
                       border: OutlineInputBorder(),
                     ),
@@ -108,7 +120,16 @@ class _SignUpState extends State<SignUp> {
                       selectedCourse = newValue!;
                     });
                   }),
-
+              customDrop(
+                'Lab',
+                labs[0],
+                labs.toList(),
+                (newValue) {
+                  setState(() {
+                    _labController.text = newValue!;
+                  });
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: DropdownButtonFormField(
@@ -127,10 +148,12 @@ class _SignUpState extends State<SignUp> {
                   decoration: const InputDecoration(
                     labelText: 'Lab',
                     hintText: 'Lab 9',
-                    prefixIcon: Icon(Icons.cell_tower_outlined),
+                    prefixIcon: Icon(Icons.cell_tower),
                     border: OutlineInputBorder(),
                   ),
-                  
+                  validator: (value) {
+                    //have Logic
+                  },
                 ),
               ),
 
@@ -161,7 +184,7 @@ class _SignUpState extends State<SignUp> {
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: 'Address',
-                    hintText: 'P.O Box Address',
+                    hintText: 'P.O. BOX 45763 Muranga',
                     prefixIcon: Icon(Icons.home_filled),
                     border: OutlineInputBorder(),
                   ),

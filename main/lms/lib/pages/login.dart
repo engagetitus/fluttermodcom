@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'components/dropdown.dart';
 import 'profile.dart';
@@ -23,8 +22,9 @@ class _LoginState extends State<Login> {
   // CHALLENGE DYNAMIC OBSCURE TEXT
   bool obscure = true;
   String selectedgender = gender[0];
-  // Key for Form Validation - maintains widget state
-  var _formkey = GlobalKey<FormState>();
+  // KEy For Form Validation - maintains widget state
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,91 +38,121 @@ class _LoginState extends State<Login> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Image.asset(
-                'assets/logo/modcom.png',
+                'assets/modcom.png',
                 scale: 3.0,
               ),
             ),
           ),
           const Text("Login"),
-          Form(child: Column(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    // Wrap Form Fields
+                    TextFormField(
+                      showCursor: false,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      textCapitalization: TextCapitalization.none,
+                      validator: (value) {
+                        final emailPattern =
+                            RegExp(r"^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$");
+                        // validate user input
+                        if (value!.isEmpty || !emailPattern.hasMatch(value)) {
+                          // if field is empty
+                          // if email is Valid
+                          return 'Enter Valid Email';
+                        } else {
+                          return null; // Rules Satisfied
+                        }
+                      },
+                      onChanged: (value) {
+                      
+                        setState(() {
+                          _email = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          labelText: 'Email',
+                          hintText: "jane@domain.com",
+                          suffix: Icon(Icons.email_outlined)),
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: obscure,
+                      controller: _passwordController,
+                      validator: (value) {
+                        // validate user input
+                        if (value!.isEmpty || value == '') {
+                          // if field is empty
+                          return 'Please enter an Password';
+                        } else if (value.length < 6 ||
+                            !value.contains(_email)) {
+                          // if password is more than 6 char
+                          return 'Must be 6 char';
+                        } else {
+                          return null; // Rules Satisfied
+                        }
+                      },
+                      decoration: InputDecoration(
+                          hintText: 'Secret word',
+                          labelText: 'Password',
+                          suffix: IconButton(
+                              onPressed: () {
+                                // handle click
+                                setState(() {
+                                  obscure = !obscure;
+                                });
+                              },
+                              icon: Icon(obscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off))),
+                    ),
+                    OutlinedButton(
+                        onPressed: () {
+                          // checking form state
+                          final isValid = _formKey.currentState!.validate();
 
-          )),
-          TextFormField(
-            showCursor: false,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            textCapitalization: TextCapitalization.none,
-            validator: (value){
-              // validate user input
-              if (value!.isEmpty){
-                return'Please Enter Email';
-              }
-              else if (!value.contains('@')){
-                return'Enter Valid Email';
-              }
-            
+                          if (isValid) {
+                            // DO NOT PROCEEDE
 
-            },
-            onChanged: (value) {
-              print(_email);
-              setState(() {
-                _email = value;
-              });
-            },
-            decoration: const InputDecoration(
-                labelText: 'Email',
-                hintText: "abc@domain.com",
-                suffix: Icon(Icons.email_outlined)),
+                            final snackBar = SnackBar(
+                                behavior: SnackBarBehavior.fixed,
+                                content: const Text("Please Check In Form"),
+                                backgroundColor: Color.fromARGB(255, 78, 7, 33),
+                                showCloseIcon: false,
+                                action: SnackBarAction(
+                                  label: "Create",
+                                  onPressed: () {},
+                                ));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            final snackBar = SnackBar(
+                                behavior: SnackBarBehavior.fixed,
+                                content: const Text("Sign In"),
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  17,
+                                  69,
+                                  158,
+                                ),
+                                showCloseIcon: false,
+                                action: SnackBarAction(
+                                  label: "Create",
+                                  onPressed: () {},
+                                ));
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
+                        child: Text("Login")),
+                  ],
+                )),
           ),
-
-          // We Definitely Need to validate User Input
-
-          TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: obscure,
-            controller: _passwordController,
-            validator: (value){
-              if (value!.isEmpty || value.contains(_email)){
-                return'Please Enter Password';
-              }
-              else if (value.length<6){
-                return'Must Be 6 Char';
-              }
-
-            },
-            decoration: InputDecoration(
-                hintText: 'Secret word',
-                labelText: 'Password',
-                suffix: IconButton(
-                    onPressed: () {
-                      // handle click
-                      setState(() {
-                        obscure = !obscure;
-                      });
-                    },
-                    icon: Icon(
-                        obscure ? Icons.visibility : Icons.visibility_off))),
-          ),
-        
-          OutlinedButton(onPressed: () {
-            final isvalid = _formkey.currentState!.validate();
-
-          }, child: Text("Login")),
-          DropdownButton(
-              isExpanded: true,
-              value: selectedgender,
-              items: gender.map((String item) {
-                return DropdownMenuItem(
-                  child: Text(item),
-                  value: item,
-                );
-              }).toList(),
-              onChanged: (String? item) {
-                setState(() {
-                  // saving the selection
-                  selectedgender = item!;
-                });
-              }),
           Align(
             alignment: Alignment.bottomRight,
             child: TextButton(
