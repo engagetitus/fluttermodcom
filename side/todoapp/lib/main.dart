@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/home.dart';
+import 'package:todoapp/screens/home.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 void main() {
