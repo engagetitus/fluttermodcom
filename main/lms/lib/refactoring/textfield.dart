@@ -11,11 +11,13 @@ Padding  customTextField({
   required Icon? prefixIcon,
   required InputBorder? border,
   required TextInputType? keyboardType,
+  required TextEditingController? controller
 }){
 
   return Padding(
     padding: const EdgeInsets.all(15.0), 
     child: TextField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
@@ -32,23 +34,38 @@ Padding  customTextField({
 
 }
 
-Padding customTextFormField({
+TextFormField customTextFormField({
   required TextInputType? keyboardType,
   required TextEditingController? controller,
-  required String? Function(String?)? validator,
-
-}){
-
-  return Padding(
-    padding: const EdgeInsets.all(15.0),
-    child: TextFormField(
-      validator: (value){
-        return validator!(value);
-      },
+  String? Function(String?)? validator,
+  required String? labelText,
+  required String? hintText,
+  required Icon? prefixIcon,
+  required InputBorder? border,
+  Function(String)? onChanged  
 
 
-    ),
-  )   ;
+})
+
+
+{
+
+  return  TextFormField(
+      onChanged: (String? value){},
+      decoration: InputDecoration(
+        labelText: labelText,
+        hintText: hintText,
+        prefixIcon: prefixIcon,
+        border: border,
+      ),
+
+      keyboardType: keyboardType,
+
+
+  );
+    
 }
+
+
 
 
