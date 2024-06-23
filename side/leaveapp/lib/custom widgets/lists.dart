@@ -1,0 +1,1 @@
+var applications = ['Sick Leave', 'Maternity Leave', 'Paternity Leave', 'Academic leave'];

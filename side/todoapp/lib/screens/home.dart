@@ -98,6 +98,18 @@ class _HomeState extends State<Home> {
 
       ),
 
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+          Expanded(flex: 1,child: Icon(Icons.add_outlined)),
+          Expanded(flex: 3, child: Text('New List')),
+          Expanded(flex: 1, child: Icon(Icons.add_card_outlined))
+          ],
+          
+          ),
+      ),
+
       
       
 
