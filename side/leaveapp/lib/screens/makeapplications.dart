@@ -1,6 +1,8 @@
 import 'package:leaveapp/custom widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:leaveapp/custom widgets/lists.dart';
+import 'package:validator_regex/validator_regex.dart';
+
 
 class Application extends StatefulWidget {
   const Application({super.key});
@@ -13,6 +15,8 @@ class Application extends StatefulWidget {
 class _ApplicationState extends State<Application> {
 
 var selectedtype = applications[0];
+var userIdValidator = TextEditingController();
+Validator? userIdvalidation;
 
 
 
@@ -33,12 +37,15 @@ var selectedtype = applications[0];
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextFormField(
+                    controller: userIdValidator,
+                    
                     decoration: const InputDecoration(
                       labelText: 'Enter your userId',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.person),
                     ),
                     keyboardType: TextInputType.number,
+                    
                   ),
                 ),
 
