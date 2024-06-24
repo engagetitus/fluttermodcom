@@ -55,10 +55,8 @@ class _LoginState extends State<Login> {
                       validator: (value) {
                         final emailPattern =
                             RegExp(r"^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$");
-                        // validate user input
                         if (value!.isEmpty || !emailPattern.hasMatch(value)) {
-                          // if field is empty
-                          // if email is Valid
+                          
                           return 'Enter Valid Email';
                         } else {
                           return null; // Rules Satisfied
