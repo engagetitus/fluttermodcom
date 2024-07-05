@@ -1,28 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 class Profile extends StatelessWidget {
   const Profile({
     super.key,
-    required this.name,
-    required this.email,
-    required this.phone,
     required this.profile,
-    required this.github,
-    required this.address,
-    required this.classes,
-    required this.course,
   });
-  final String name;
-  final String email;
-  final String phone;
-  final String profile;
-  final String github;
-  final String address;
-  final String classes;
-  final String course;
+  final Map<String, dynamic> profile;
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +22,25 @@ class Profile extends StatelessWidget {
             Center(
               child: CircleAvatar(
                 radius: 40,
-                backgroundImage: NetworkImage(profile),
+                backgroundImage: NetworkImage(profile['profile']),
               ),
             ),
-            Text(name),
+            Text(profile['name']),
             Row(
               children: [
                 const Icon(Icons.email),
-                Expanded(child: Text(email)),
+                Expanded(child: Text(profile['email'])),
               ],
             ),
             Row(
               children: [
                 const Icon(Icons.code_off),
-                Expanded(child: Text(github)),
+                Expanded(child: Text(profile['github'])),
               ],
             ),
-            Text("Class $classes"),
-            Text("Course $course"),
-            Text("Address \n $address")
+            Text("Class ${profile['classes']}"),
+            Text("Course ${profile['course']}"),
+            Text("Address \n $profile['address']")
           ],
         ),
       ),

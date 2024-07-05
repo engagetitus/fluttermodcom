@@ -1,10 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:lms/pages/admin/admin_dashboard.dart';
+import 'package:lms/pages/students/student_dashboard.dart';
+import 'package:lms/pages/trainers/trainers_dashboard.dart';
 
-import 'components/dropdown.dart';
+import '../../data/users.dart';
 import 'signup.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final Map<String, dynamic> profile;
+  const Login({
+    super.key,
+    required this.profile,
+  });
 
   @override
   State<Login> createState() => _LoginState();
@@ -15,7 +23,9 @@ class _LoginState extends State<Login> {
   //1. Use Variable
   String _email = "Default Email";
   //2,. Using A Controller
-  final _passwordController = TextEditingController();
+  final _passwordController = TextEditingController(text: '7uehdcjcshwe8y');
+  late final _emailController =
+      TextEditingController(text: widget.profile['email']);
 
   // CHALLENGE DYNAMIC OBSCURE TEXT
   bool obscure = true;
@@ -28,6 +38,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {},
@@ -39,7 +50,10 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          const Text("Login"),
+          Text(
+            "${widget.profile['role']} Login",
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Form(
@@ -48,24 +62,23 @@ class _LoginState extends State<Login> {
                   children: [
                     // Wrap Form Fields
                     TextFormField(
+                      controller: _emailController,
                       showCursor: false,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       textCapitalization: TextCapitalization.none,
                       validator: (value) {
-                        final emailPattern =
-                            RegExp(r"^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$");
-                        if (value!.isEmpty || !emailPattern.hasMatch(value)) {
-                          
+                        if (value!.isEmpty) {
+                          return 'Enter Email';
+                        }
+                        final emailPattern = RegExp(
+                            r"^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}$");
+
+                        if (!emailPattern.hasMatch(value)) {
                           return 'Enter Valid Email';
                         } else {
                           return null; // Rules Satisfied
                         }
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          _email = value;
-                        });
                       },
                       decoration: const InputDecoration(
                           labelText: 'Email',
@@ -82,7 +95,7 @@ class _LoginState extends State<Login> {
                           // if field is empty
                           return 'Please enter an Password';
                         } else if (value.length < 6 ||
-                            !value.contains(_email)) {
+                            value.contains(_emailController.text)) {
                           // if password is more than 6 char
                           return 'Must be 6 char';
                         } else {
@@ -103,7 +116,13 @@ class _LoginState extends State<Login> {
                                   ? Icons.visibility
                                   : Icons.visibility_off))),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     OutlinedButton(
+                        style: ButtonStyle(
+                            minimumSize: WidgetStatePropertyAll(Size(
+                                MediaQuery.of(context).size.width * .75, 50))),
                         onPressed: () {
                           // checking form state
                           final isValid = _formKey.currentState!.validate();
@@ -124,20 +143,46 @@ class _LoginState extends State<Login> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           } else {
-                            const snackBar = SnackBar(
-                              behavior: SnackBarBehavior.fixed,
-                              content: Text("Signed In"),
-                              backgroundColor: Color.fromARGB(
-                                255,
-                                17,
-                                69,
-                                158,
-                              ),
-                              showCloseIcon: false,
-                            );
+                            // NAVIGATing Based On role
+                            String? role = widget.profile['role'];
+                            if (role == roles[0]) {
+                              // student
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => StudentDashboard(
+                                          profile: widget.profile)));
+                            } else if (role == roles[1]) {
+                              // Trainer
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => TrainerDashboard(
+                                          profile: widget.profile)));
+                            } else if (role == roles[2]) {
+                              // Trainer
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => AdminDashboard(
+                                          profile: widget.profile)));
+                            } else {
+                              //admin
+                              const snackBar = SnackBar(
+                                behavior: SnackBarBehavior.fixed,
+                                content: Text("Signed In, No Role"),
+                                backgroundColor: Color.fromARGB(
+                                  255,
+                                  17,
+                                  69,
+                                  158,
+                                ),
+                                showCloseIcon: false,
+                              );
 
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
                           }
                         },
                         child: const Text("Login")),
