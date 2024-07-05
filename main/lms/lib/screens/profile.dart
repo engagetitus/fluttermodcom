@@ -2,34 +2,12 @@ import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget{
   const Profile({super.key,
-  required this.firstName,
-  required this.lastName,
-  required this.email,
-  required this.phone,
-  required this.course,
-  required this.lab,
-  //required this.image,
-  required this.github,
-  required this.address,
   
+  required this.profile,
  
   
   });
-
-  final String firstName;
-  final String lastName;
-  final String course;
-  final String lab;
-  // final String? image;                          
-  final String github;
-  final String address;
-  final String email;
-  final String phone;
-  
-
-  
-  
-
+final Map <String, dynamic> profile; 
   @override
   Widget build(BuildContext context) {
    
@@ -72,7 +50,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(firstName),
+                child: Text(profile['firstName']),
               ),
             ],
           ),
@@ -80,7 +58,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(lastName),
+                child: Text(profile['lastName']),
               ),
             ],
           ),
@@ -89,7 +67,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(email),
+                child: Text(profile['email']),
               ),
             ],
           ),
@@ -99,7 +77,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(github),
+                child: Text(profile['github']),
               ),
             ],
           ),
@@ -108,7 +86,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(course),
+                child: Text(profile['course']),
               ),
             ],
           ),
@@ -119,7 +97,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(lab),
+                child: Text(profile['lab']),
               ),
             ],
           ),
@@ -128,7 +106,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(address),
+                child: Text(profile['address']),
               ),
             ],
           ),
@@ -137,7 +115,7 @@ class Profile extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(phone),
+                child: Text(profile['phone']),
               ),
             ],
           ),

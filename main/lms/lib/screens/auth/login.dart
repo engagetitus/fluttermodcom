@@ -1,13 +1,18 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lms/screens/admin/admin_dashboard.dart';
+import 'package:lms/screens/students/studentdashboard.dart';
+import 'package:lms/screens/trainors/trainors_dashboard.dart';
 //import 'package:lms/screens/profile.dart';
-import 'package:lms/screens/signup.dart';
+import '../auth/signup.dart';
 import 'package:email_validator/email_validator.dart';
 //import 'package:lms/refactoring/textfield.dart';
+import '../../data/users.dart';
 
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final Map<String, dynamic> profile;
+  const Login({super.key, required this.profile});
 
   @override
   State<Login> createState() => _LoginState();
@@ -15,7 +20,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool obscure = true;
-  final emailController = TextEditingController();
+  late final emailController = TextEditingController(text: 'davidwamiti@gmail.com');
   final passwordController = TextEditingController();
   String email = 'Default email';
   final _formKey = GlobalKey<FormState>();
@@ -53,12 +58,12 @@ class _LoginState extends State<Login> {
           
           
           
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Login',
-                  style: TextStyle(fontSize: 25.2),
+                  '${widget.profile['role']} Login',
+                  style: const TextStyle(fontSize: 25.2),
                 ),
               ],
             ),
@@ -128,7 +133,7 @@ class _LoginState extends State<Login> {
                         // validate user input
                         if (value!.isEmpty || value == '') {
                           // if field is empty
-                          return 'Please enter an Password';
+                          return 'Please enter a Password';
                         } else if (value.length < 6 ) {
                           // if password is more than 6 char
                           return 'Must be 6 char';
@@ -151,16 +156,7 @@ class _LoginState extends State<Login> {
           
           
                   
-               TextButton(
-                  style: ButtonStyle(
-                  foregroundColor: WidgetStateProperty.all<Color>(Colors.blue),
-                        ),
-                  onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_)=> const SignUp()));
-            
-                  },
-                  child: const Text('Log In'),
-            ),
+               
                 
                 
                 
@@ -171,6 +167,8 @@ class _LoginState extends State<Login> {
                           final isValid = _formKey.currentState!.validate();
           
                           if (!isValid) {
+
+                            
                             // DO NOT PROCEEDE
           
                             final snackBar = SnackBar(
@@ -192,23 +190,24 @@ class _LoginState extends State<Login> {
           
           
                           else {
-                            final snackBar = SnackBar(
-                                behavior: SnackBarBehavior.fixed,
-                                content: const Text("Sign In"),
-                                backgroundColor: const Color.fromARGB(
-                                  255,
-                                  17,
-                                  69,
-                                  158,
-                                ),
-                                showCloseIcon: false,
-                                action: SnackBarAction(
-                                  label: "Create",
-                                  onPressed: () {},
-                                ));
-          
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+
+                      String role = widget.profile['role'];
+
+                      if(role == roles[0]){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> Studentdashboard(profile: widget.profile)));
+                      }
+                      else if(role == roles[1])
+                      {
+                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> AdminDashboard(profile: widget.profile)));
+                      }
+                      else if(role == roles[2]){
+                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> TrainorsDashboard(profile: widget.profile)));
+                      }
+                      else{
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signed In. No role found')));
+                      }
+
+                            
                           }
                         },
                         child: const Text("Login")),

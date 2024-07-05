@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms/screens/login.dart';
+import 'package:lms/screens/auth/login.dart';
+import 'package:lms/screens/auth/welcome.dart';
 //import 'package:lms/screens/signup.dart';
 
 void main() {
@@ -13,9 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(useMaterial3: true),
-      home: const Login(),
+      title: 'Learning Management System',
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }
