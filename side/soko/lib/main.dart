@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soko/controller/shared_pereferences.dart';
 
+import 'screens/authentication.dart';
 import 'screens/products.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Leave App',
-    debugShowCheckedModeBanner: false,    
-    theme: FlexThemeData.light(scheme: FlexScheme.hippieBlue,),
-    darkTheme: FlexThemeData.dark(scheme: FlexScheme.hippieBlue, darkIsTrueBlack: true),
-    home:  const Products(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // ensures resources are available
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // check if some data exists
+  bool hasId = prefs.containsKey(PrefsNaming.username);
+  runApp(MyApp(hasId: hasId));
+}
+
+class MyApp extends StatelessWidget {
+  final bool hasId;
+  const MyApp({super.key, required this.hasId});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Soko Garden',
+      debugShowCheckedModeBanner: false,
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.hippieBlue,
+      ),
+      darkTheme: FlexThemeData.dark(
+          scheme: FlexScheme.hippieBlue, darkIsTrueBlack: true),
+      home:
+          hasId ? const Products() : const Authentication(), // our Login Logic
+    );
+  }
 }

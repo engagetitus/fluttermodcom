@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:soko/api/products.dart';
+import 'package:soko/screens/mpesa.dart';
+import 'package:soko/screens/products.dart';
 
-import '../controller/api.dart';
+import '../controller/products.dart';
 
 class Oneproduct extends StatefulWidget {
   const Oneproduct({super.key, required this.product_id});
@@ -19,7 +22,7 @@ class _OneproductState extends State<Oneproduct> {
     // 2. Snapshot - Represents the state of the future (connectionState, data,error)
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shop'),
+        title: const Text('Shop'),
       ),
       body: FutureBuilder(
           future: fetchProductbyId(widget.product_id),
@@ -32,21 +35,47 @@ class _OneproductState extends State<Oneproduct> {
               return Text('Error ${snapshot.error.toString()}');
             } else {
               // show our data.
-              var data = snapshot.data;
-              // Buid our UI
-              return Column(
-                children: [
-                  Text(data.toString()),
-                  Image.network(
-                    '$baseurl/static/images/',
-                    scale: 2.5,
-                  ),
-                  const Text('Product Name'),
-                  const Text('Product Price'),
-                  const Text('product_description'),
-                  TextButton.icon(onPressed: () {}, label: const Text('Buy'))
-                ],
-              );
+              if (snapshot.hasData) {
+                var data = snapshot.data;
+                // Buid our UI
+                return Stack(
+                  children: [
+                    ProductCard(product: data),
+                    Positioned(
+                        bottom: 0,
+                        right: MediaQuery.of(context).size.width * .4,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              // ALerts , Modals
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (_) {
+                                    return Container(
+                                      height: MediaQuery.of(context).size.height*.5,
+                                      child: Mpesa());
+                                  });
+                            },
+                            child: Text('BUY')))
+                  ],
+                );
+
+                // return ProductCard(product: data);
+                // return Column(
+                //   children: [
+                //     ProductCard(product: data),
+                //     // Image.network(
+                //     //   '$baseurl/static/images/${data[5]}',
+                //     //   scale: 2.5,
+                //     // ),
+                //     // Text(data[1]),
+                //     // Text(NumberFormat().format(data[3])),
+                //     // Text(data[2]),
+                //     TextButton.icon(onPressed: () {}, label: const Text('Buy'))
+                //   ],
+                // );
+              } else {
+                return const Text('No Data');
+              }
             }
           }),
     );
