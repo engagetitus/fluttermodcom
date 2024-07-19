@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todosqflite/todo.dart';
+import 'package:todosqflite/screens/todo.dart';
 
 void main() {
   runApp(const MyApp());
