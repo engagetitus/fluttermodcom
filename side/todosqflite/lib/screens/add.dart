@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:todosqflite/controller/db_helpers.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -37,7 +39,10 @@ class _AddPageState extends State<AddPage> {
 
         OutlinedButton(
             onPressed: () {
-             
+              insertTodoItem(title.text, desc.text, completed).then((v) {
+                // close the page after db
+                Navigator.pop(context);
+              });
             },
             child: const Text('Save'))
       ])),
