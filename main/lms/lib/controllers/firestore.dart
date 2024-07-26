@@ -14,9 +14,21 @@ Future createUserInFirestore(Profile user) async {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   // 2) using uuid package
   String userId = Uuid().v1();
-  
+
   await FirebaseFirestore.instance
       .collection('profiles')
       .doc(uid)
       .set(user.copyWith(uid: uid).toMap());
+}
+
+// Update
+Future updateUserInFirestore() async {
+  await FirebaseFirestore.instance
+      .collection('profiles')
+      .doc('docref')
+      .update({'fname': 'value'});
+}
+// delete 
+Future deleteUserInFirestore() async{
+  await FirebaseFirestore.instance.collection('profiles').doc('docref').delete();
 }

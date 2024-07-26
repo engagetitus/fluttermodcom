@@ -23,3 +23,5 @@ Future signInWithEmailPassword(
   //   return e.code;
   // }
 }
+
+// Try: anonymous, Thirdparties (github,fb,google)
