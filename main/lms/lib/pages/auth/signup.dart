@@ -1,12 +1,18 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore
 
 import 'package:lms/components/dropdown.dart';
+import 'package:lms/controllers/firestore.dart';
+import 'package:lms/models/users.dart';
+import 'package:uuid/uuid.dart';
+import '../../controllers/firebaseauth.dart';
 import '../../data/courses.dart';
 
 import '../../components/textfield.dart';
 import '../../data/users.dart';
-import 'login.dart';
+import '../students/student_dashboard.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -18,15 +24,15 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   String selectedCourse = courses[0]; // setting initial
   final _labController = TextEditingController(text: labs[0]);
-  final _fNameController = TextEditingController(text: 'John');
-  final _lNameController = TextEditingController(text: 'Doe');
-  final _emailController = TextEditingController(text: 'engage@titus.co.ke');
-  final _phoneController = TextEditingController(text: '0102718995');
-  final _profileController =
-      TextEditingController(text: 'https://modcom.co.ke/grad_images/pic7.JPG');
-  final _gitController = TextEditingController(
-      text: "https://github.com/engagetitus/fluttermodcom");
-  final _addressController = TextEditingController(text: 'Nairobi');
+  final _fNameController = TextEditingController();
+  final _lNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+
+  final _phoneController = TextEditingController();
+  final _profileController = TextEditingController();
+  final _gitController = TextEditingController();
+  final _addressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String? role;
   @override
@@ -84,6 +90,18 @@ class _SignUpState extends State<SignUp> {
                         icon: Icons.email, validator: (value) {
                       if (value!.isEmpty || !EmailValidator.validate(value)) {
                         return "Enter Valid Email";
+                      } else {
+                        return null;
+                      }
+                    }),
+                    spacing,
+                    customTextField('Password',
+                        hint: 'secret word',
+                        controller: _passController,
+                        keyboardType: TextInputType.visiblePassword,
+                        icon: Icons.password, validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Enter Valid Password";
                       } else {
                         return null;
                       }
@@ -194,10 +212,9 @@ class _SignUpState extends State<SignUp> {
                         }),
                     OutlinedButton.icon(
                         style: const ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)))),
+                          shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)))),
                         ),
                         icon: const Icon(Icons.near_me),
                         onPressed: () {
@@ -205,20 +222,46 @@ class _SignUpState extends State<SignUp> {
                           if (!_isValid!) {
                             return;
                           } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => Login(profile: {
-                                          'name': _fNameController.text,
-                                          'email': _emailController.text,
-                                          'phone': _phoneController.text,
-                                          'profile': _profileController.text,
-                                          'github': _gitController.text,
-                                          'address': _addressController.text,
-                                          'classes': _labController.text,
-                                          'course': selectedCourse,
-                                          'role': role
-                                        })));
+                            Profile newuser = Profile(
+                                uid: 'uid',
+                                fName: _fNameController.text,
+                                lName: _lNameController.text,
+                                email: _emailController.text,
+                                phone: _phoneController.text,
+                                address: _addressController.text,
+                                role: role ?? '',
+                                github: _gitController.text,
+                                classId: _labController.text,
+                                courses: selectedCourse,
+                                imageUrl:
+                                    'https://modcom.co.ke/grad_images/pic7.JPG',
+                                createdAt: DateTime.now());
+                            newuser.toMap();
+                            // aCTUALLY lOG THEM iN:
+                            signUpWithEmailPass(
+                                    email: _emailController.text
+                                        .toLowerCase() // convert to lowercase
+
+                                        .trim(), // removes leadeing spaces
+                                    password: _passController.text)
+                                .then((v) {
+                              // authentication listener
+                              FirebaseAuth.instance
+                                  .authStateChanges()
+                                  .listen((user) async {
+                                if (user != null) {
+                                  // Create User In Database
+                                  await createUserInFirestore(newuser);
+                                }
+                              });
+
+                              // then create User
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => StudentDashboard()));
+                            }).catchError((e) {});
                           }
                         },
                         label: const Text("SignUp"))
@@ -230,20 +273,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
-// TextButton.icon(
-//   icon: const Icon(Icons.near_me),
-//   style: ButtonStyle(
-//     foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-//   ),
-//   onPressed: () {},
-//   label: const Text('Text Button'),
-// ),
-// ElevatedButton.icon(
-//     style: const ButtonStyle(
-//         shape: MaterialStatePropertyAll(RoundedRectangleBorder()),
-//         backgroundColor:
-//             const MaterialStatePropertyAll(Colors.amber)),
-//     icon: const Icon(Icons.near_me),
-//     onPressed: () {},
-//     label: const Text("Elevated Button")),

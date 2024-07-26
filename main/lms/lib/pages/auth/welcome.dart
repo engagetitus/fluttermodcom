@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lms/pages/auth/signup.dart';
 
+import 'login.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +15,7 @@ class Home extends StatelessWidget {
         onTap: () {
           // Navigate
           // stacking pages
-          Navigator.pushReplacement(
-              // ignore: prefer_const_constructors
-              context,
-              MaterialPageRoute(builder: (_) => SignUp()));
+
           // pushReplacement removes the page from the stack
           // - same as finish() in kkotlin
         },
@@ -33,6 +34,27 @@ class Home extends StatelessWidget {
         Text(
           'Learning Management System',
           style: Theme.of(context).textTheme.titleLarge,
+        ),
+        Row(
+          children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      // ignore: prefer_const_constructors
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const Login(
+                                profile: {},
+                              )));
+                },
+                child: const Text('LOGIN')),
+            TextButton(
+                onPressed: () => Navigator.pushReplacement(
+                    // ignore: prefer_const_constructors
+                    context,
+                    MaterialPageRoute(builder: (_) => const SignUp())),
+                child: const Text('Create Account')),
+          ],
         )
       ]),
     );

@@ -10,8 +10,32 @@ var levels = ["Beginner", "Intermediate", "Advanced"];
 Map courseinfo = {};
 
 List<Courses> mycourses = [
-  Courses('code', "Data Science", 'python'),
-  Courses('code', "Flutter", 'python'),
-  Courses('code', "Mern", 'python'),
-  Courses('code', "Software Development", 'python'),
+  Courses(
+      id: 'id',
+      code: 'code',
+      name: 'Data Science',
+      description: 'python',
+      topics: [],
+      createdAt: DateTime.now()),
+  Courses(
+      id: 'id',
+      code: 'code',
+      name: 'Flutter',
+      description: 'dart',
+      topics: [],
+      createdAt: DateTime.now()),
+  Courses(
+      id: 'id',
+      code: 'code',
+      name: 'Mern',
+      description: 'js',
+      topics: [],
+      createdAt: DateTime.now()),
+  Courses(
+      id: 'id',
+      code: 'code',
+      name: 'Software Development',
+      description: 'python',
+      topics: [],
+      createdAt: DateTime.now())
 ];

@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/pages/admin/admin_dashboard.dart';
 import 'package:lms/pages/students/student_dashboard.dart';
 import 'package:lms/pages/trainers/trainers_dashboard.dart';
 
+import '../../controllers/firebaseauth.dart';
 import '../../data/users.dart';
 import 'signup.dart';
 
@@ -21,7 +24,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   // Handling the input
   //1. Use Variable
-  String _email = "Default Email";
   //2,. Using A Controller
   final _passwordController = TextEditingController(text: '7uehdcjcshwe8y');
   late final _emailController =
@@ -71,10 +73,8 @@ class _LoginState extends State<Login> {
                         if (value!.isEmpty) {
                           return 'Enter Email';
                         }
-                        final emailPattern = RegExp(
-                            r"^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}\.[a-zA-Z]{2,}$");
 
-                        if (!emailPattern.hasMatch(value)) {
+                        if (EmailValidator.validate(value) == false) {
                           return 'Enter Valid Email';
                         } else {
                           return null; // Rules Satisfied
@@ -94,10 +94,6 @@ class _LoginState extends State<Login> {
                         if (value!.isEmpty || value == '') {
                           // if field is empty
                           return 'Please enter an Password';
-                        } else if (value.length < 6 ||
-                            value.contains(_emailController.text)) {
-                          // if password is more than 6 char
-                          return 'Must be 6 char';
                         } else {
                           return null; // Rules Satisfied
                         }
@@ -143,46 +139,70 @@ class _LoginState extends State<Login> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           } else {
-                            // NAVIGATing Based On role
-                            String? role = widget.profile['role'];
-                            if (role == roles[0]) {
-                              // student
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => StudentDashboard(
-                                          profile: widget.profile)));
-                            } else if (role == roles[1]) {
-                              // Trainer
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => TrainerDashboard(
-                                          profile: widget.profile)));
-                            } else if (role == roles[2]) {
-                              // Trainer
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => AdminDashboard(
-                                          profile: widget.profile)));
-                            } else {
-                              //admin
-                              const snackBar = SnackBar(
+                            signInWithEmailPassword(
+                                    email: _emailController.text
+                                        .trim()
+                                        .toLowerCase(),
+                                    password: _passwordController.text)
+                                .then((v) {
+                              String? role = widget.profile['role'];
+
+                              if (role == roles[0]) {
+                                // student
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => StudentDashboard()));
+                              } else if (role == roles[1]) {
+                                // Trainer
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => TrainerDashboard(
+                                            profile: widget.profile)));
+                              } else if (role == roles[2]) {
+                                // Trainer
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => AdminDashboard(
+                                            profile: widget.profile)));
+                              } else {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => StudentDashboard()));
+                                //admin
+                                const snackBar = SnackBar(
+                                  behavior: SnackBarBehavior.fixed,
+                                  content: Text("Signed In, No Role"),
+                                  backgroundColor: Color.fromARGB(
+                                    255,
+                                    17,
+                                    69,
+                                    158,
+                                  ),
+                                  showCloseIcon: false,
+                                );
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                              // if successful
+                            }).catchError((e) {
+                              // print out
+                              var snackBar = SnackBar(
                                 behavior: SnackBarBehavior.fixed,
-                                content: Text("Signed In, No Role"),
-                                backgroundColor: Color.fromARGB(
-                                  255,
-                                  17,
-                                  69,
-                                  158,
-                                ),
+                                content: Text(e.code),
+                                backgroundColor:
+                                    Color.fromARGB(255, 158, 17, 34),
                                 showCloseIcon: false,
                               );
 
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
-                            }
+                            });
+                            // NAVIGATing Based On role
                           }
                         },
                         child: const Text("Login")),
@@ -193,7 +213,7 @@ class _LoginState extends State<Login> {
             alignment: Alignment.bottomRight,
             child: TextButton(
                 onPressed: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (_) => const SignUp()));
                 },
                 child: const Text(

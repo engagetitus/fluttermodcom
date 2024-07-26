@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/courses.dart';
 
 DropdownButtonFormField customDrop(String input, String selected,
     List<String> list, Function(dynamic)? setValue) {

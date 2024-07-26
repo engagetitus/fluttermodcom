@@ -45,4 +45,24 @@ Future<List<Map<String, Object?>>> filterTodos(bool isComplete) async {
       .query('todos', where: 'isComplete = ?', whereArgs: [isComplete ? 1 : 0]);
 }
 
-// Update 
+// Update
+
+Future updateItem(int id, String name, String description) async {
+  Database db = await initializeDB();
+  db.update('todos', {'title': name, 'description': description},
+      where: 'id = ?', whereArgs: [id]);
+}
+
+// Delete
+Future deleteItem(int id) async {
+  Database db = await initializeDB();
+  db.delete('todos', where: 'id = ?', whereArgs: [id]);
+}
+
+Future<void> performTransaction() async {
+  final Database db = await initializeDB();
+  await db.transaction((txn) async {
+    await txn.insert('items', {'name': 'Item 1', 'quantity': 10});
+    await txn.insert('items', {'name': 'Item 2', 'quantity': 20});
+  });
+}

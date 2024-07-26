@@ -7,9 +7,7 @@ import 'package:lms/pages/students/fee_statement.dart';
 class StudentDashboard extends StatefulWidget {
   const StudentDashboard({
     super.key,
-    required this.profile,
   });
-  final Map<String, dynamic> profile;
 
   @override
   State<StudentDashboard> createState() => _StudentDashboardState();
@@ -26,11 +24,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             IconButton.filledTonal(
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => Profile(
-                                profile: widget.profile,
-                              )));
+                      context, MaterialPageRoute(builder: (_) => Profile()));
                 },
                 icon: const Icon(Icons.person_4_outlined))
           ],

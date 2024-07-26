@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 class Profile extends StatelessWidget {
   const Profile({
     super.key,
-    required this.profile,
   });
-  final Map<String, dynamic> profile;
 
   @override
   Widget build(BuildContext context) {
@@ -19,28 +17,28 @@ class Profile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(profile['profile']),
-              ),
-            ),
-            Text(profile['name']),
+            // Center(
+            //   child: CircleAvatar(
+            //     radius: 40,
+            //     backgroundImage: NetworkImage(profile['profile']),
+            //   ),
+            // ),
+            Text("profile['name']"),
             Row(
               children: [
                 const Icon(Icons.email),
-                Expanded(child: Text(profile['email'])),
+                Expanded(child: Text("profile['email']")),
               ],
             ),
             Row(
               children: [
                 const Icon(Icons.code_off),
-                Expanded(child: Text(profile['github'])),
+                Expanded(child: Text("profile['github']")),
               ],
             ),
-            Text("Class ${profile['classes']}"),
-            Text("Course ${profile['course']}"),
-            Text("Address \n $profile['address']")
+            Text("Class {profile['classes']}"),
+            Text("Course {profile['course']}"),
+            Text("Address \n profile['address']")
           ],
         ),
       ),

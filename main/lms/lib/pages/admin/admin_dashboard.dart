@@ -21,7 +21,7 @@ class AdminDashboard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (_) => Profile(
-                              profile: profile,
+                            
                             )));
               },
               icon: const Icon(Icons.person_4_outlined))
