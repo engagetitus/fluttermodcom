@@ -164,8 +164,7 @@ class _LoginState extends State<Login> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => AdminDashboard(
-                                            profile: widget.profile)));
+                                        builder: (_) => AdminDashboard()));
                               } else {
                                 Navigator.pushReplacement(
                                     context,
