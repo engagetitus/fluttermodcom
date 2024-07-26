@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lms/pages/students/student_dashboard.dart';
 
 import 'firebase_options.dart';
 import 'pages/auth/welcome.dart';
+import 'pages/trainers/trainers_dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: user == null ? const Home() : const TrainerDashboard(),
     );
   }
 }

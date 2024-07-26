@@ -158,8 +158,7 @@ class _LoginState extends State<Login> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => TrainerDashboard(
-                                            profile: widget.profile)));
+                                        builder: (_) => TrainerDashboard()));
                               } else if (role == roles[2]) {
                                 // Trainer
                                 Navigator.pushReplacement(

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/pages/auth/signup.dart';
 
@@ -5,8 +7,6 @@ import 'login.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +35,7 @@ class Home extends StatelessWidget {
           'Learning Management System',
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        Text(FirebaseAuth.instance.currentUser!.email ?? 'none'),
         Row(
           children: [
             TextButton(

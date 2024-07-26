@@ -1,14 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:lms/pages/profile.dart';
+import 'package:lms/pages/trainers/analysis.dart';
+import 'package:lms/pages/trainers/attendance.dart';
 
-class TrainerDashboard extends StatelessWidget {
+class TrainerDashboard extends StatefulWidget {
   const TrainerDashboard({
     super.key,
-    required this.profile,
   });
-  final Map<String, dynamic> profile;
 
+  @override
+  State<TrainerDashboard> createState() => _TrainerDashboardState();
+}
+
+class _TrainerDashboardState extends State<TrainerDashboard> {
+  int currentIndex = 1;
+
+  List<Widget> pages = [const Analysis(), const Attandance()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,16 +25,29 @@ class TrainerDashboard extends StatelessWidget {
         actions: [
           IconButton.filledTonal(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => Profile(
-                           
-                            )));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const Profile()));
               },
               icon: const Icon(Icons.person_4_outlined))
         ],
       ),
+      body: pages[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (i) {
+            setState(() {
+              currentIndex = i;
+            });
+          },
+          currentIndex: currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.class_outlined), label: 'Classroom')
+          ]),
     );
   }
 }
