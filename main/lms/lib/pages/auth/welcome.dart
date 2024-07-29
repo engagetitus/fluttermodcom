@@ -34,7 +34,6 @@ class Home extends StatelessWidget {
           'Learning Management System',
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        Text(FirebaseAuth.instance.currentUser!.email ?? 'none'),
         Row(
           children: [
             TextButton(
