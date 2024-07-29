@@ -43,7 +43,7 @@ class _SignUpState extends State<SignUp> {
         forceMaterialTransparency: true,
         automaticallyImplyLeading: false,
         actions: [TextButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()));
         }, child: const Text('Log In'))],
       ),
       

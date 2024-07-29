@@ -60,7 +60,34 @@ body: pages[selectedTap],
 }
 
 List <Widget> pages = [
-  const Center(child: Text('Home'),),
+  const Agenda(),
   const Courses(),
   const Statements(),
 ];
+
+
+ List agenda = ['Timetable', 'Calendar', 'Attendance', 'Classroom'];
+class Agenda extends StatefulWidget {
+  const Agenda({super.key});
+
+  @override
+  State<Agenda> createState() => _AgendaState();
+}
+
+class _AgendaState extends State<Agenda> {
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GridView.builder(
+        itemCount: agenda.length,
+        gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2), 
+        itemBuilder: (context, index){
+          return  Card(
+            color: Colors.grey,
+            elevation: 10,
+            child: Center(child: Text(agenda[index], style: const TextStyle(color: Colors.black),), ));
+        }),
+    );
+  }
+}

@@ -162,46 +162,57 @@ class _LoginState extends State<Login> {
                 
                 
                 
-                OutlinedButton(
-                        onPressed: () {
-                          // checking form state
-                          final isValid = _formKey.currentState!.validate();
-          
-                          if (!isValid) {
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
 
-                            
-                            // DO NOT PROCEEDE
-          
-                            final snackBar = SnackBar(
-                                behavior: SnackBarBehavior.fixed,
-                                content: const Text("Please Check In Form"),
-                                backgroundColor: const Color.fromARGB(255, 78, 7, 33),
-                                showCloseIcon: false,
-                                duration: const Duration(milliseconds: 1500),
-                                action: SnackBarAction(
-                                  label: "Create",
-                                  onPressed: () {},
-                                ));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } 
-          
-          
-          
-          
-          
-                          else {
-                            signinwithemailandpassword(email: emailController.text.trim().toLowerCase(), password: passwordController.text).then((v){
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(v.toString())));
-                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Studentdashboard()));
-                            });
+                    TextButton(onPressed:(){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const SignUp()));
+                    }, child: const Text("Don't have an account? Sign Up")),
 
 
-
-                            
-                          }
-                        },
-                        child: const Text("Login")),
+                    OutlinedButton(
+                            onPressed: () {
+                              // checking form state
+                              final isValid = _formKey.currentState!.validate();
+                              
+                              if (!isValid) {
+                    
+                                
+                                // DO NOT PROCEEDE
+                              
+                                final snackBar = SnackBar(
+                                    behavior: SnackBarBehavior.fixed,
+                                    content: const Text("Please Check In Form"),
+                                    backgroundColor: const Color.fromARGB(255, 78, 7, 33),
+                                    showCloseIcon: false,
+                                    duration: const Duration(milliseconds: 1500),
+                                    action: SnackBarAction(
+                                      label: "Create",
+                                      onPressed: () {},
+                                    ));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } 
+                              
+                              
+                              
+                              
+                              
+                              else {
+                                signinwithemailandpassword(email: emailController.text.trim().toLowerCase(), password: passwordController.text).then((v){
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(v.toString())));
+                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Studentdashboard()));
+                                });
+                    
+                    
+                    
+                                
+                              }
+                            },
+                            child: const Text("Login")),
+                  ],
+                ),
                   
                   
             // Text('User Password: ${passwordController.text}'),

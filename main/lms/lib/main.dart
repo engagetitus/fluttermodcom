@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       title: 'Learning Management System',
       theme: ThemeData.light(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
-      home: user == null ? const Home() : const AdminDashboard(),
+      home: user == null ? const Home() : const Studentdashboard(),
       debugShowCheckedModeBanner: false,
     );
   }
