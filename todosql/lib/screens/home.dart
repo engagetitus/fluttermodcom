@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todosql/controller/sql/db_helpers.dart';
+import 'package:todosql/models/todomodel.dart';
 import 'package:todosql/screens/addtasks.dart';
 
 class Home extends StatefulWidget {
@@ -37,15 +38,26 @@ class _HomeState extends State<Home> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index){
               var todo = snapshot.data![index];
-              
-              return ListTile(
-                title: Text(todo['title'].toString()),
-                subtitle:  Text(todo['description'].toString()),
-                trailing: Checkbox(
-                  value: todo['isComplete'] == 1 ?  true :false, 
-                  onChanged: (v){
-                 
-                })
+              var todos = Task.fromDB(todo);
+              return Dismissible(
+                secondaryBackground: Container(color: Colors.green, child: const Icon(Icons.edit),),
+                background: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(color: Colors.blue, child: const Icon(Icons.delete_forever),),
+                  ],
+                ),
+                onDismissed: (direction){},
+                key: Key(todos.id.toString()),
+                child: ListTile(
+                  title: Text(todos.title),
+                  subtitle:  Text(todos.description),
+                  trailing: Checkbox(
+                    value: todos.isComplete, 
+                    onChanged: (v){
+                   
+                  })
+                ),
               );
           
             });

@@ -1,4 +1,5 @@
 //import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/screens/admin/admin_dashboard.dart';
 import 'package:lms/screens/students/studentdashboard.dart';
@@ -11,8 +12,8 @@ import '../../data/users.dart';
 
 
 class Login extends StatefulWidget {
-  final Map<String, dynamic> profile;
-  const Login({super.key, required this.profile});
+  
+  const Login({super.key,});
 
   @override
   State<Login> createState() => _LoginState();
@@ -58,12 +59,12 @@ class _LoginState extends State<Login> {
           
           
           
-             Row(
+             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${widget.profile['role']} Login',
-                  style: const TextStyle(fontSize: 25.2),
+                  'Login',
+                  style: TextStyle(fontSize: 25.2),
                 ),
               ],
             ),
@@ -87,17 +88,17 @@ class _LoginState extends State<Login> {
                   keyboardType: TextInputType.emailAddress,
                   enableSuggestions: false,
                   controller: emailController,
-                  validator: (value) {
-                      var validation = EmailValidator.validate('$value');
+                  // validator: (value) {
+                  //     var validation = EmailValidator.validate('$value');
 
-                      if(!validation){
-                        return null;
-                      }
-                      else{
-                        return 'Enter valid email';
-                      }
+                  //     if(!validation){
+                  //       return null;
+                  //     }
+                  //     else{
+                  //       return 'Enter valid email';
+                  //     }
 
-                      },
+                  //     },
                       onChanged: (value) {
                       
                         setState(() {
@@ -190,22 +191,12 @@ class _LoginState extends State<Login> {
           
           
                           else {
+                            signinwithemailandpassword(email: emailController.text.trim().toLowerCase(), password: passwordController.text).then((v){
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(v.toString())));
+                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Studentdashboard()));
+                            });
 
-                      String role = widget.profile['role'];
 
-                      if(role == roles[0]){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> Studentdashboard(profile: widget.profile)));
-                      }
-                      else if(role == roles[1])
-                      {
-                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> AdminDashboard(profile: widget.profile)));
-                      }
-                      else if(role == roles[2]){
-                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> TrainorsDashboard(profile: widget.profile)));
-                      }
-                      else{
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signed In. No role found')));
-                      }
 
                             
                           }
@@ -218,5 +209,13 @@ class _LoginState extends State<Login> {
                   ),
       ]),
     );
+  }
+}
+
+Future signinwithemailandpassword({required String email, required String password}) async {
+  try{
+  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);}
+  on FirebaseAuthException catch(e){
+    e.code;
   }
 }

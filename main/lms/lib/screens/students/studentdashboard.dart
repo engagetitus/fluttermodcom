@@ -4,8 +4,10 @@ import 'package:lms/screens/students/fee_statement.dart';
 import '../profile.dart';
 
 class Studentdashboard extends StatefulWidget {
-  const Studentdashboard({super.key, required this.profile});
-  final Map<String,dynamic> profile;
+  const Studentdashboard({super.key, 
+  //required this.profile
+  });
+  //final Map<String,dynamic> profile;
   
 
   @override
@@ -20,11 +22,12 @@ class _StudentdashboardState extends State<Studentdashboard> {
 
 
   appBar: AppBar(
-        title: const Center(child: Text('Student Dashboard'),),
+        automaticallyImplyLeading: false,
+        title: const Text('Student Dashboard'),
         actions: [
           IconButton.filledTonal(onPressed: (){
 
-            Navigator.push(context, MaterialPageRoute(builder: (_)=> Profile(profile: widget.profile,)));
+            // Navigator.push(context, MaterialPageRoute(builder: (_)=> Profile(profile: widget.profile,)));
           }, icon: const Icon(Icons.person_4_outlined))
         ],
         ),

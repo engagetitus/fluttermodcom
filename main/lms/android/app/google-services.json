@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "322594516981",
+    "project_id": "flutter-david",
+    "storage_bucket": "flutter-david.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322594516981:android:86d889a101914f3205babc",
+        "android_client_info": {
+          "package_name": "ke.co.modcom.flutter.lms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_ovlFnPXqk4_76NG12v_kzpHFnQgiaio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

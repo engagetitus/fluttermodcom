@@ -29,6 +29,7 @@ class Home extends StatelessWidget {
         children: [
           Image.asset('assets/modcom.png', color: Theme.of(context).brightness == Brightness.dark? Colors.white : null),
           const Text('Learning Management System')
+          
         ],
       ),
     );

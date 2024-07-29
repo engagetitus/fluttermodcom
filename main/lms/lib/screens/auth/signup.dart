@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lms/components/dropdown.dart';
 import 'package:lms/components/textfield.dart';
+import 'package:lms/controllers/firebaseauth.dart';
+import 'package:lms/controllers/firestore.dart';
 import 'package:lms/screens/auth/login.dart';
-import 'package:lms/screens/profile.dart';
+import 'package:lms/models/users.dart';
+import 'package:lms/screens/students/studentdashboard.dart';
 import '../../data/courses.dart';
 import '../../data/users.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -27,11 +33,19 @@ class _SignUpState extends State<SignUp> {
   var image = TextEditingController(text: '');
   var github = TextEditingController(text: '');
   var address = TextEditingController(text: 'Muranga');
+ 
   String? role;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        automaticallyImplyLeading: false,
+        actions: [TextButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+        }, child: const Text('Log In'))],
+      ),
       
       body: SafeArea(
         child: ListView(
@@ -76,6 +90,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
+                
               
                 
                 Padding(
@@ -268,22 +283,63 @@ class _SignUpState extends State<SignUp> {
                     foregroundColor: WidgetStateProperty.all<Color>(Colors.blue),
                   ),
                   onPressed: () {
-                    Map<String,dynamic> profile = {
-                      'firstName': firstName.text, 
-                      'lastName': lastName.text, 
-                      'email': email.text, 
-                      'phone': phone.text,
-                      'role': role, 
-                      'course': selectedCourse, 
-                      'lab': selectedLab,  
-                      'github': github.text, 
-                      'address': address.text
-                      };
-                    
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=> Login(
-                      profile:profile )
+                                      
+                    if(_formKey.currentState!.validate()){
+                      
+
+                      signupwithemailandpassword(
+                        email: email.text.toLowerCase().trim(), password: passwordController.text).then((v){
+
+                           Profile newuser = Profile(
+                            uid : 'uid',
+                            fname: firstName.text,
+                            lname: lastName.text,
+                            email: email.text,
+                            phone : phone.text,
+                            address : address.text,
+                            role: role ?? 'role',
+                            github: github.text,
+                            classId : selectedLab,
+                            courses : selectedCourse,
+                            imageUrl: image.text,
+                            createdAt: DateTime.now(),
+         
+                          );
+                          newuser.toMap();
+                          //then create user
+                      //Authentication listener
+                      FirebaseAuth.instance.authStateChanges().listen((user){
+                        if(user != null){
+                          //Create user in database
+                          createUserInFirestore(newuser).catchError((e){
+                            ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(actions : const [Text('Done')],content: Text(e.toString())));
+                          });
+                        }
+                      });
+
+                         
+
+
+                         Navigator.push(context, MaterialPageRoute(builder: (_)=> const Studentdashboard(
+                       )
                   
                       ));
+                          
+                      }).catchError((e){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                      });
+                    }
+                    else{
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ensure all fields are filled in correctly')));
+                    }
+      
+
+
+
+
+                     
+                    
+                   
         
                   }, 
                   label: const Text('Sign up'),
@@ -309,3 +365,17 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+
+//     Map<String,dynamic> profile = {
+                      // 'firstName': firstName.text, 
+                      // 'lastName': lastName.text, 
+                      // 'email': email.text, 
+                      // 'phone': phone.text,
+                      // 'role': role, 
+                      // 'course': selectedCourse, 
+                      // 'lab': selectedLab,  
+                      // 'github': github.text, 
+                      // 'address': address.text
+                      // };
+
+

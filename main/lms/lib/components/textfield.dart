@@ -41,7 +41,6 @@ TextFormField customTextFormField({
   required String? labelText,
   required String? hintText,
   required Icon? prefixIcon,
-  required InputBorder? border,
   Function(String)? onChanged  
 
 
@@ -56,7 +55,7 @@ TextFormField customTextFormField({
         labelText: labelText,
         hintText: hintText,
         prefixIcon: prefixIcon,
-        border: border,
+        border: const OutlineInputBorder(),
       ),
 
       keyboardType: keyboardType,

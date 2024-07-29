@@ -1,23 +1,57 @@
 import 'package:flutter/material.dart';
-import '../profile.dart';
+import 'package:lms/screens/admin/addcourses.dart';
+import 'package:lms/screens/admin/allcourses.dart';
+import 'package:lms/screens/admin/reports.dart';
+import 'package:lms/screens/trainors/attendance.dart';
 
-class AdminDashboard extends StatelessWidget {
-  const AdminDashboard({super.key, required this.profile});
-  final Map<String,dynamic> profile;
 
+class AdminDashboard extends StatefulWidget {
+  const AdminDashboard({super.key});
+
+  @override
+  State<AdminDashboard> createState() => _AdminDashboardState();
+}
+
+class _AdminDashboardState extends State<AdminDashboard> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Admin Dashboard'),),
+        title: const Text('Admin Dashboard'),
         actions: [
           IconButton.filledTonal(onPressed: (){
 
-            Navigator.push(context, MaterialPageRoute(builder: (_)=> Profile(profile: profile,)));
+            // Navigator.push(context, MaterialPageRoute(builder: (_)=> Profile(profile: profile,)));
           }, icon: const Icon(Icons.person_4_outlined))
         ],
         ),
+
+        body: pages[currentIndex],
+
+        floatingActionButton: FloatingActionButton.extended(
+          label: const Text('Add Course'),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (_)=> const CreateCourse()));
+          }),
+
+         bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+         onTap: (i){
+            setState((){
+              currentIndex = i;
+            });
+         }, 
+
+
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.class_outlined), label: 'Courses'),
+          BottomNavigationBarItem(icon: Icon(Icons.class_outlined), label: 'Classroom'),
+        ]),
       
       );
   }
 }
+
+List<Widget>  pages = const [Reports(), CourseMaster(),  Attendance()];
