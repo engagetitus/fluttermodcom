@@ -4,6 +4,8 @@ import 'package:lms/pages/profile.dart';
 import 'package:lms/pages/trainers/analysis.dart';
 import 'package:lms/pages/trainers/attendance.dart';
 
+import '../students/student_dashboard.dart';
+
 class TrainerDashboard extends StatefulWidget {
   const TrainerDashboard({
     super.key,
@@ -16,7 +18,12 @@ class TrainerDashboard extends StatefulWidget {
 class _TrainerDashboardState extends State<TrainerDashboard> {
   int currentIndex = 1;
 
-  List<Widget> pages = [const Analysis(), const Attandance()];
+  List<Widget> pages = [
+    const DummyDashboard(
+      items: ['Lesson Plans', 'Calendar', 'ToT', 'Feedback', 'Tasks'],
+    ),
+    const Attandance()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/pages/admin/add_course.dart';
 
+import '../../components/courses.dart';
+import '../../controllers/firestore.dart';
+import '../../models/courses.dart';
+
 class CourseMaster extends StatefulWidget {
   const CourseMaster({super.key});
 
@@ -22,11 +26,9 @@ class _CourseMasterState extends State<CourseMaster> {
         },
         child: const Icon(Icons.plus_one),
       ),
+      body: const FetchCourses(
+        isAdmin: true,
+      ),
     );
   }
-}
-
-// FETCHING DATA FROM FIREBASE:
-Stream<QuerySnapshot<Map<String, dynamic>>> getProfiles() {
-  return FirebaseFirestore.instance.collection('courses').snapshots();
 }

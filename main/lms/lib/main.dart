@@ -5,6 +5,7 @@ import 'package:lms/pages/students/student_dashboard.dart';
 
 import 'firebase_options.dart';
 import 'pages/admin/admin_dashboard.dart';
+import 'pages/auth/portals.dart';
 import 'pages/auth/welcome.dart';
 import 'pages/trainers/trainers_dashboard.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         useMaterial3: true,
       ),
-      home: user == null ? const Home() : const AdminDashboard(),
+      home: user == null ? const Home() : const Portals(),
     );
   }
 }

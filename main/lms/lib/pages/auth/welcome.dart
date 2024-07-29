@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/pages/auth/signup.dart';
 
@@ -43,10 +42,7 @@ class Home extends StatelessWidget {
                   Navigator.pushReplacement(
                       // ignore: prefer_const_constructors
                       context,
-                      MaterialPageRoute(
-                          builder: (_) => const Login(
-                                profile: {},
-                              )));
+                      MaterialPageRoute(builder: (_) => const Login()));
                 },
                 child: const Text('LOGIN')),
             TextButton(

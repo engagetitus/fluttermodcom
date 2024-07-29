@@ -1,20 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lms/pages/admin/admin_dashboard.dart';
-import 'package:lms/pages/students/student_dashboard.dart';
-import 'package:lms/pages/trainers/trainers_dashboard.dart';
+import 'package:lms/pages/auth/portals.dart';
 
 import '../../controllers/firebaseauth.dart';
 import '../../data/users.dart';
 import 'signup.dart';
 
 class Login extends StatefulWidget {
-  final Map<String, dynamic> profile;
   const Login({
     super.key,
-    required this.profile,
   });
 
   @override
@@ -25,9 +20,8 @@ class _LoginState extends State<Login> {
   // Handling the input
   //1. Use Variable
   //2,. Using A Controller
-  final _passwordController = TextEditingController(text: '7uehdcjcshwe8y');
-  late final _emailController =
-      TextEditingController(text: widget.profile['email']);
+  final _passwordController = TextEditingController();
+  late final _emailController = TextEditingController();
 
   // CHALLENGE DYNAMIC OBSCURE TEXT
   bool obscure = true;
@@ -53,7 +47,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           Text(
-            "${widget.profile['role']} Login",
+            "User Login",
             style: Theme.of(context).textTheme.displaySmall,
           ),
           Padding(
@@ -145,47 +139,8 @@ class _LoginState extends State<Login> {
                                         .toLowerCase(),
                                     password: _passwordController.text)
                                 .then((v) {
-                              String? role = widget.profile['role'];
-
-                              if (role == roles[0]) {
-                                // student
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => StudentDashboard()));
-                              } else if (role == roles[1]) {
-                                // Trainer
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => TrainerDashboard()));
-                              } else if (role == roles[2]) {
-                                // Trainer
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => AdminDashboard()));
-                              } else {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => StudentDashboard()));
-                                //admin
-                                const snackBar = SnackBar(
-                                  behavior: SnackBarBehavior.fixed,
-                                  content: Text("Signed In, No Role"),
-                                  backgroundColor: Color.fromARGB(
-                                    255,
-                                    17,
-                                    69,
-                                    158,
-                                  ),
-                                  showCloseIcon: false,
-                                );
-
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (_) => Portals()));
                               // if successful
                             }).catchError((e) {
                               // print out

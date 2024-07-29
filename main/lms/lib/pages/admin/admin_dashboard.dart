@@ -4,6 +4,7 @@ import 'package:lms/pages/admin/allcourses.dart';
 import 'package:lms/pages/admin/reports.dart';
 import 'package:lms/pages/profile.dart';
 
+import '../students/student_dashboard.dart';
 import '../trainers/attendance.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -19,7 +20,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
   int currentIndex = 1;
 
   List<Widget> pages = [
-    const Reports(),
+    const DummyDashboard(
+      items: ['Trainers', 'Students', 'Licences', 'Parents', 'Feedback'],
+    ),
     const CourseMaster(),
     const Attandance()
   ];

@@ -1,12 +1,11 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore
+// Firestore
 
 import 'package:lms/components/dropdown.dart';
 import 'package:lms/controllers/firestore.dart';
 import 'package:lms/models/users.dart';
-import 'package:uuid/uuid.dart';
 import '../../controllers/firebaseauth.dart';
 import '../../data/courses.dart';
 

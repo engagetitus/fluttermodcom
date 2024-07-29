@@ -64,7 +64,7 @@ class Courses {
       name: map['name'] as String,
       description: map['description'] as String,
       topics: List<Resources>.from(
-        (map['topics'] as List<int>).map<Resources>(
+        (map['topics'] as List<dynamic>).map<Resources>(
           (x) => Resources.fromMap(x as Map<String, dynamic>),
         ),
       ),

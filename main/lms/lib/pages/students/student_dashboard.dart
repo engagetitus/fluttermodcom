@@ -23,8 +23,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
           actions: [
             IconButton.filledTonal(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Profile()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Profile()));
                 },
                 icon: const Icon(Icons.person_4_outlined))
           ],
@@ -51,11 +51,35 @@ class _StudentDashboardState extends State<StudentDashboard> {
   }
 
   List<Widget> pages = [
-    const Text(
-      'Home Page',
-      style: TextStyle(fontSize: 50),
+    const DummyDashboard(
+      items: ['TimeTable', 'Calendar', 'Attendance', 'Classwork'],
     ),
     const Classwork(),
     const Statements()
   ];
+}
+
+class DummyDashboard extends StatelessWidget {
+  final List<String> items;
+  const DummyDashboard({
+    Key? key,
+    required this.items,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+        itemCount: items.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) {
+          return Card(
+            child: Center(
+                child: Text(
+              items[index],
+              style: TextStyle(fontSize: 20),
+            )),
+          );
+        });
+  }
 }
