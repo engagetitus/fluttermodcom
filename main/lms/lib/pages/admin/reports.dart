@@ -10,6 +10,21 @@ class Reports extends StatefulWidget {
 class _ReportsState extends State<Reports> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Text('ADMIN HOME'));
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(tabs: [
+              Tab(text: 'Students'),
+              Tab(text: 'Results'),
+              Tab(text: 'Accounts')
+            ]),
+          ),
+          body: const TabBarView(children: [
+            Text('Welcome Students'),
+            Text('Welcome Results'),
+            Text('Welcome Accounts'),
+          ])),
+    );
   }
 }

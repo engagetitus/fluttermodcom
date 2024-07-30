@@ -49,18 +49,20 @@ class FetchStatements extends StatelessWidget {
                             documents[index].data() as Map<String, dynamic>;
                         // convert to model for consistency
                         Fees fee = Fees.fromMap(data);
-                        return DataRow(cells: [
-                          DataCell(Text((index + 1).toString())),
-                          DataCell(Text(fee.isCredt ? 'Credit' : 'Debit')),
-                          DataCell(Text(fee.amount.toStringAsFixed(1))),
-                          DataCell(Text(fee.createdOn.toIso8601String())),
-                          DataCell(onTap: () {
-                            FirebaseFirestore.instance
-                                .collection('feestatements')
-                                .doc(fee.id)
-                                .update({'isApproved': !fee.isApproved});
-                          }, Text(fee.isApproved ? 'Approved' : 'Pending'))
-                        ]);
+                        return DataRow(
+                            color: WidgetStatePropertyAll( index != 0 && fee.amount > documents[index-1].data()['amount'] ? Colors.black : Colors.blue),
+                            cells: [
+                              DataCell(Text((index + 1).toString())),
+                              DataCell(Text(fee.isCredt ? 'Credit' : 'Debit')),
+                              DataCell(Text(fee.amount.toStringAsFixed(1))),
+                              DataCell(Text(fee.createdOn.toIso8601String())),
+                              DataCell(onTap: () {
+                                FirebaseFirestore.instance
+                                    .collection('feestatements')
+                                    .doc(fee.id)
+                                    .update({'isApproved': !fee.isApproved});
+                              }, Text(fee.isApproved ? 'Approved' : 'Pending'))
+                            ]);
                       })),
                 ),
               );
