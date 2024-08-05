@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:messages/conversations.dart';
 import 'package:messages/search.dart';
 
+import 'components/profile.dart';
+
 class Messages extends StatelessWidget {
   const Messages({super.key});
 
@@ -70,12 +72,7 @@ class Messages extends StatelessWidget {
                             child: Icon(Icons.search),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage("assets/ruto.jfif"),
-                          ),
-                        )
+                        ProfileIcon()
                       ],
                     ),
                   )
