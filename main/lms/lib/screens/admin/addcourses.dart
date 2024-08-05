@@ -4,69 +4,130 @@ import 'package:flutter/material.dart';
 import 'package:lms/components/textfield.dart';
 import 'package:lms/models/courses.dart';
 
-class CreateCourse extends StatelessWidget {
+class CreateCourse extends StatefulWidget {
+
   const CreateCourse({super.key});
 
   @override
+  State<CreateCourse> createState() => _CreateCourseState();
+}
+
+class _CreateCourseState extends State<CreateCourse> {
+  final formKey = GlobalKey<FormState>();
+  var code = TextEditingController();
+  var name = TextEditingController();
+  var descr = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    var code = TextEditingController();
-     var name = TextEditingController();
-      var descr = TextEditingController();
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Course'),
       ),
       body: SafeArea(
-        child: Form(child: 
-        Column(
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: customTextFormField(
-                keyboardType: TextInputType.name, 
-                controller: code, 
-                labelText: 'Course Code', 
-                hintText: 'e.g. H456RTW', 
-                prefixIcon: const Icon(Icons.code), ),
-            ),
+            Form(
+              key: formKey,
+              child: 
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: customTextFormField(
+                    keyboardType: TextInputType.name, 
+                    controller: code, 
+                    labelText: 'Course Code', 
+                    hintText: 'e.g. H456RTW', 
+                    prefixIcon: const Icon(Icons.code), 
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return 'Course Code is required';
+                      }
+                      else{
+                        return null;
+                      }
+                    },
+                    ),
+                ),
+            
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: customTextFormField(
+                    keyboardType: TextInputType.name, 
+                    controller: name, 
+                    labelText: 'Course Name', 
+                    hintText: 'e.g. Flutter course', 
+                    prefixIcon: const Icon(Icons.book), 
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return 'Course Code is required';
+                      }
+                      else{
+                        return null;
+                      }
+                    },
+                    ),
+                    
+                  ),
+            
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: customTextFormField(
+                    keyboardType: TextInputType.multiline, 
+                    controller: descr, 
+                    labelText: 'Course Description', 
+                    hintText: 'e.g. Cross-Platform Development', 
+                    prefixIcon: const Icon(Icons.code), 
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return 'Course Code is required';
+                      }
+                      else{
+                        return null;
+                      }
+                    },
+                    ),
+                  )
+              ],
+            )),
         
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: customTextFormField(
-                keyboardType: TextInputType.name, 
-                controller: name, 
-                labelText: 'Course Name', 
-                hintText: 'e.g. Flutter', 
-                prefixIcon: const Icon(Icons.book), ),
-              ),
-        
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: customTextFormField(
-                keyboardType: TextInputType.multiline, 
-                controller: descr, 
-                labelText: 'Course Description', 
-                hintText: 'e.g. H456RTW', 
-                prefixIcon: const Icon(Icons.code), ),
-              )
+
+
+
           ],
-        )),
+        ),
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
-          
-            Courses course = Courses(
-              id: 'id', 
-              code: code.text, 
-              name: name.text, 
-              description: descr.text, 
-              topics: [], 
-              createdAt: DateTime.now()
+        onPressed: ()async{
+          var isValid = formKey.currentState!.validate();
+          if(isValid){
+            try{
+                    
+              await saveCoursestoFireStore(
+                map: 
+                {
+                'Course name' : name.text,
+                'Course code': code.text,
+                'Course Description': descr.text
+              },
+              names : name.text
               );
-              saveCoursestoFireStore(course);
+            
 
-              Navigator.pop(context);
+              //Navigator.pop(context);
+            }
+            catch(e){
+             print(e);
+            }
+          }
+
+          else{
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Check your fields')));
+          }
+          
         
       },
 
@@ -77,6 +138,6 @@ class CreateCourse extends StatelessWidget {
   }
 }
 
-Future saveCoursestoFireStore(Courses course)async{
-  return await FirebaseFirestore.instance.collection('courses').doc().set(course.toMap());
+Future saveCoursestoFireStore({required Map<String, dynamic> map, required String names})async{
+  return await FirebaseFirestore.instance.collection('courses').doc(names).set(map);
 }

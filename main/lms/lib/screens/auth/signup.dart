@@ -4,6 +4,7 @@ import 'package:lms/components/dropdown.dart';
 import 'package:lms/components/textfield.dart';
 import 'package:lms/controllers/firebaseauth.dart';
 import 'package:lms/controllers/firestore.dart';
+import 'package:lms/screens/admin/admin_dashboard.dart';
 import 'package:lms/screens/auth/login.dart';
 import 'package:lms/models/users.dart';
 import 'package:lms/screens/students/studentdashboard.dart';
@@ -320,7 +321,7 @@ class _SignUpState extends State<SignUp> {
                          
 
 
-                         Navigator.push(context, MaterialPageRoute(builder: (_)=> const Studentdashboard(
+                         Navigator.push(context, MaterialPageRoute(builder: (_)=> const AdminDashboard(
                        )
                   
                       ));

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class Statements extends StatefulWidget {
   const Statements({super.key});
@@ -21,38 +23,52 @@ class _StatementsState extends State<Statements> {
             return const CircularProgressIndicator();
           }
           else if(snapshot.connectionState == ConnectionState.active){
-            var data = snapshot.data;
-            if(data == null){
-              return const Text('No data available');
+            if(!snapshot.hasData || snapshot.data.docs.isEmpty){
+              return const SizedBox(height: 200, child: Center(child: Text('No statements found')));
             }
             else{
+              var data = snapshot.data.docs;
+            
+            
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: DataTable(
+                child: 
+                DataTable(
                   columns: const[
-                    DataColumn(label: Text('#')),
+                    DataColumn(label: Text('Reference')),
                     DataColumn(label: Text('Type')),
                     DataColumn(label: Text('Amount')),
                     DataColumn(label: Text('Date')),
                     DataColumn(label: Text('Status'))
                 
-                  ], rows: ListView.builder(
-                    itemBuilder: (context, index){
-                      return  DataRow(cells: [
-                      DataCell(Text(data.toString())),
-                      DataCell(Text(data.toString())),
-                      DataCell(Text(data.toString())),
-                      DataCell(Text(data.toString())),
-                      DataCell(Text(data.toString())),
+                  ], rows: 
+                  List<DataRow>.generate(data.length, (index){
+                    return DataRow(cells: [
+                      DataCell(Text(data[0].data()['reference'].toString())),
+                      DataCell(Text(data[0].data()['type'].toString())),
+                      DataCell(Text(data[0].data()['amount'].toString())),
+                      DataCell(Text(DateFormat().format(DateTime.parse(data[0].data()['date'])))),
+                      DataCell(Text(data[0].data()['status'].toString())),
                     ]);
-                    })
+                  })
                   
                   
+                  
+                  
+                  
+                   
                   
                   
                   ),
               );
+
             }
+
+
+
+
+            
+            
           }
           else{
             return const Text('Error occurred');
@@ -174,7 +190,7 @@ return FirebaseFirestore.instance.collection('Bank Statements').snapshots();
 }
 
 Future poststatement(Map<String, dynamic> map)async{
-  String uid = FirebaseAuth.instance.currentUser!.uid;
-  return await FirebaseFirestore.instance.collection('Bank Statements').doc(uid).set(map);
+ String userId = const Uuid().v1();
+  return await FirebaseFirestore.instance.collection('Bank Statements').doc(userId).set(map);
 }
 

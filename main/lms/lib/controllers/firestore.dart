@@ -13,8 +13,8 @@ Future createUserInFirestore(Profile user) async{
 String uid = FirebaseAuth.instance.currentUser!.uid;
 
 //Package to geneate unique ids
-String userId = Uuid().v1();
-await FirebaseFirestore.instance.collection('profiles').doc('New Users').set(user.copyWith(uid : uid).toMap());
+String userId = const Uuid().v1();
+await FirebaseFirestore.instance.collection('profiles').doc(userId).set(user.copyWith(uid : uid).toMap());
 
 
 

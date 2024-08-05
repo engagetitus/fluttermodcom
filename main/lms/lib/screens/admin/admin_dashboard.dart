@@ -29,11 +29,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
         body: pages[currentIndex],
 
-        floatingActionButton: FloatingActionButton.extended(
-          label: const Text('Add Course'),
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (_)=> const CreateCourse()));
-          }),
+        
 
          bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,

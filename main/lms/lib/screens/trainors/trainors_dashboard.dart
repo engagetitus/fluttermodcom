@@ -11,9 +11,11 @@ class TrainorsDashboard extends StatefulWidget {
 }
 
 class _TrainorsDashboardState extends State<TrainorsDashboard> {
+
+   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 1;
+   
     
     return Scaffold(
       appBar: AppBar(

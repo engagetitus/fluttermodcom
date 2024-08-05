@@ -58,7 +58,14 @@ class UserCard extends StatelessWidget {
         
           var data = documents[index].data() as Map<String, dynamic>;
           Profile user = Profile.fromMap(data);
-          return Text(user.fname);
+          return ListTile(
+          leading: CircleAvatar(
+            child: Text(user.fname.substring(0,1)),
+          ),
+          title: Text(user.fname),
+          subtitle: Text(user.courses),
+          );
+          
       }
       );
   }
