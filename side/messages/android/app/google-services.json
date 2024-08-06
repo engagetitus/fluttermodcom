@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "52334712634",
+    "project_id": "flutter-modcom",
+    "storage_bucket": "flutter-modcom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52334712634:android:2f8c8c5ae6466d10f76203",
+        "android_client_info": {
+          "package_name": "ke.co.modcom.flutter.lms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52334712634-pq4hmaad6tajqmriqc953e944s3192sf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgIUozbQ_z79WaK1gfVr1Rm3HWsCe8nZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52334712634-pq4hmaad6tajqmriqc953e944s3192sf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52334712634:android:32a84a939d2090a0f76203",
+        "android_client_info": {
+          "package_name": "ke.co.titus.modcom.messages"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52334712634-pq4hmaad6tajqmriqc953e944s3192sf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgIUozbQ_z79WaK1gfVr1Rm3HWsCe8nZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52334712634-pq4hmaad6tajqmriqc953e944s3192sf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

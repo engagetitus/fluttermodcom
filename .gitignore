@@ -25,3 +25,78 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Flutter related
+**/build/
+**/ios/Flutter/Flutter.framework/
+**/ios/Flutter/Flutter.podspec
+**/ios/.symlinks/
+**/ios/Pods/
+**/ios/Runner.xcworkspace/
+**/ios/Runner.xcworkspace.xcuserdata/
+**/ios/Flutter/App.framework/
+**/ios/Flutter/Flutter.framework/
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.d
+**/ios/Flutter/snapshot_blob.bin.d
+**/ios/Flutter/snapshot_blob.bin
+**/ios/Flutter/AppFrameworkInfo.plist
+
+# Android related
+**/android/.gradle/
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+**/android/local.properties
+**/android/*.iml
+**/android/app/*.iml
+**/android/.idea/
+**/android/.dart_tool/
+**/android/build/
+**/android/app/build/
+**/android/.idea/workspace.xml
+**/android/.idea/libraries
+**/android/.idea/modules.xml
+**/android/.idea/vcs.xml
+**/android/.idea/caches
+**/android/.idea/compiler.xml
+**/android/.idea/inspectionProfiles
+**/android/.idea/dictionaries
+**/android/.idea/gradle.xml
+**/android/.idea/misc.xml
+**/android/.idea/assetWizardSettings.xml
+**/android/.idea/misc.xml
+**/android/.idea/runConfigurations/
+**/android/captures/
+
+# Flutter / Dart related
+**/.dart_tool/
+**/.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.flutter-plugins-dependencies.lock
+**/.flutter-plugins-dependencies-stable.lock
+**/generated_plugin_registrant.dart
+
+# VS Code
+**/.vscode/
+
+# IntelliJ related
+**/.idea/
+**/*.iml
+**/*.ipr
+**/*.iws
+
+# Web related
+**/web/.dart_tool/
+**/web/.flutter-plugins
+**/web/.flutter-plugins-dependencies
+
+# macOS related
+**/.DS_Store
+
+# Misc
+**/pubspec.lock
+**/pubspec.bak
