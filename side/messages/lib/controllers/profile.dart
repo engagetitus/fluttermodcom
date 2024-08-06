@@ -19,3 +19,4 @@ Future newProfile(Profile text) async {
       .doc(firebaseUId)
       .set(text.copyWith(id: firebaseUId).toMap());
 }
+

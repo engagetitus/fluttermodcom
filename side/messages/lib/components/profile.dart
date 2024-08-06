@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -46,8 +45,9 @@ class _ProfileIconState extends State<ProfileIcon> {
             } else {
               if (snapshot.data != null) {
                 var data = snapshot.data!.data() as Map<String, dynamic>;
+                Profile template = Profile.fromMap(data);
                 return CircleAvatar(
-                  backgroundImage: NetworkImage(data['imageUrl']),
+                  backgroundImage: NetworkImage(template.imageUrl),
                 );
               }
               // we will have an actual user in db with Image
@@ -89,7 +89,6 @@ class _ProfileIconState extends State<ProfileIcon> {
                         const InputDecoration(labelText: 'Phone Number'),
                     onChanged: (value) => phone = value,
                   ),
-                  Text(file?.name ?? 'nun'),
                   ElevatedButton(
                       onPressed: () async {
                         // upload files

@@ -39,7 +39,7 @@ class Profile {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() { // if saving to firebase (local nosql - hive)
     return <String, dynamic>{
       'id': id,
       'fName': fName,
@@ -63,7 +63,7 @@ class Profile {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap()); // sending data to api
 
   factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source) as Map<String, dynamic>);
 
